@@ -1,32 +1,29 @@
-import React from "react"
-import { GetStaticProps } from "next"
-import Layout from "../components/Layout"
-import Post, { PostProps } from "../components/Post"
+import React from "react";
+import { GetStaticProps } from "next";
+import Layout from "../components/Layout";
+import Post, { PostProps } from "../components/Post";
+import Prisma from "../lib/prisma";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const feed = [
-    {
-      id: "1",
-      title: "Prisma is the perfect ORM for Next.js",
-      content: "[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!",
-      published: false,
+export const getStaticProps: GetStaticProps<BlogProps> = async () => {
+  const feed = await Prisma.post.findMany({
+    where: { published: true },
+    include: {
       author: {
-        name: "Nikolas Burk",
-        email: "burk@prisma.io",
+        select: { name: true, email: true },
       },
     },
-  ]
-  return { 
-    props: { feed }, 
-    revalidate: 10 
-  }
+  });
+  return {
+    props: { feed },
+    revalidate: 10,
+  };
+};
+
+interface BlogProps {
+  feed: PostProps[];
 }
 
-type Props = {
-  feed: PostProps[]
-}
-
-const Blog: React.FC<Props> = (props) => {
+const Blog: React.FC<BlogProps> = (props) => {
   return (
     <Layout>
       <div className="page">
@@ -54,7 +51,7 @@ const Blog: React.FC<Props> = (props) => {
         }
       `}</style>
     </Layout>
-  )
-}
+  );
+};
 
-export default Blog
+export default Blog;
