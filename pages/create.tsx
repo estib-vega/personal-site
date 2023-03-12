@@ -48,7 +48,7 @@ const Draft: React.FC = () => {
       </div>
       <style jsx>{`
         .page {
-          background: var(--geist-background);
+          background-color: #aaa;
           padding: 3rem;
           display: flex;
           justify-content: center;
