@@ -1,9 +1,11 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 import ReactMarkdown from "react-markdown";
+import Router from "next/router";
 import Layout from "../../components/Layout";
 import { PostProps } from "../../components/Post";
 import Prisma from "../../lib/prisma";
+import { useSession } from "next-auth/react";
 
 type GetServerSideParams = {
   id: string;
@@ -28,13 +30,25 @@ export const getServerSideProps: GetServerSideProps<
       },
     },
   });
-
   return {
     props: post,
   };
 };
 
+async function publishPost(id: string): Promise<void> {
+  await fetch(`/api/publish/${id}`, {
+    method: "PUT",
+  });
+  await Router.push("/");
+}
+
 const Post: React.FC<PostProps> = (props) => {
+  const { data: session, status } = useSession();
+  if (status === "loading") {
+    return <div>Authenticating ...</div>;
+  }
+  const userHasValidSession = !!session;
+  const postBelongsToUser = session.user?.email === props.author?.email;
   let title = props.title;
   if (!props.published) {
     title = `${title} (Draft)`;
@@ -46,10 +60,13 @@ const Post: React.FC<PostProps> = (props) => {
         <h2>{title}</h2>
         <p>By {props?.author?.name || "Unknown author"}</p>
         <ReactMarkdown children={props.content} />
+        {!props.published && userHasValidSession && postBelongsToUser && (
+          <button onClick={() => publishPost(props.id)}>Publish</button>
+        )}
       </div>
       <style jsx>{`
         .page {
-          background: white;
+          background: var(--geist-background);
           padding: 2rem;
         }
 
