@@ -1,0 +1,10 @@
+.link {
+    margin: 0 4px;
+    text-decoration: none;
+    color: black;
+}
+
+.linkActive {
+    composes: link;
+    font-weight: bold;
+}

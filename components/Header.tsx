@@ -1,219 +1,87 @@
 import React from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import Link from "./generic/Link";
+import LinkButton from "./generic/LinkButton";
+import styles from "./Header.module.css";
+import * as View from "./view";
+import { RouteInfo } from "./view";
 
-const Header: React.FC = () => {
-  const router = useRouter();
-  const isActive = (pathname: string): boolean => router.pathname === pathname;
+interface LeftContainerProps {
+  isActive: (routeInfo: View.RouteInfo) => boolean;
+  showDrafts: boolean;
+}
 
-  const { data: session, status } = useSession();
-
-  let left = (
-    <div className="left">
-      <Link href="/">
-        <a className="bold" data-active={isActive("/")}>
-          Feed
-        </a>
-      </Link>
-      <style jsx>{`
-        .bold {
-          font-weight: bold;
-        }
-
-        a {
-          text-decoration: none;
-          color: var(--geist-foreground);
-          display: inline-block;
-        }
-
-        .left a[data-active="true"] {
-          color: gray;
-        }
-
-        a + a {
-          margin-left: 1rem;
-        }
-      `}</style>
+const LeftContainer = (props: LeftContainerProps): JSX.Element => {
+  return (
+    <div className={styles.left}>
+      <Link
+        routeInfo={View.routeMap.feed}
+        isActive={props.isActive(View.routeMap.feed)}
+      />
+      <Link
+        routeInfo={View.routeMap.drafts}
+        isActive={props.isActive(View.routeMap.drafts)}
+      />
     </div>
   );
+};
 
-  let right = null;
+// ####################################################################################
 
-  if (status === "loading") {
-    left = (
-      <div className="left">
-        <Link href="/">
-          <a className="bold" data-active={isActive("/")}>
-            Feed
-          </a>
-        </Link>
-        <style jsx>{`
-          .bold {
-            font-weight: bold;
-          }
+interface RightContainerProps {
+  isLoadingSession: boolean;
+  session: Session | null;
+}
 
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          .left a[data-active="true"] {
-            color: gray;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-        `}</style>
-      </div>
-    );
-    right = (
-      <div className="right">
+const RightContainer = (props: RightContainerProps): JSX.Element => {
+  if (props.isLoadingSession) {
+    return (
+      <div className={styles.right}>
         <p>Validating session ...</p>
-        <style jsx>{`
-          .right {
-            margin-left: auto;
-          }
-        `}</style>
       </div>
     );
   }
 
-  if (!session) {
-    right = (
-      <div className="right">
-        <Link href="/api/auth/signin">
-          <a data-active={isActive("/signup")}>Log in</a>
-        </Link>
-        <style jsx>{`
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-
-          .right {
-            margin-left: auto;
-          }
-
-          .right a {
-            border: 1px solid var(--geist-foreground);
-            padding: 0.5rem 1rem;
-            border-radius: 3px;
-          }
-        `}</style>
-      </div>
-    );
-  }
-
-  if (session) {
-    left = (
-      <div className="left">
-        <Link href="/">
-          <a className="bold" data-active={isActive("/")}>
-            Feed
-          </a>
-        </Link>
-        <Link href="/drafts">
-          <a data-active={isActive("/drafts")}>My drafts</a>
-        </Link>
-        <style jsx>{`
-          .bold {
-            font-weight: bold;
-          }
-
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          .left a[data-active="true"] {
-            color: gray;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-        `}</style>
-      </div>
-    );
-    right = (
-      <div className="right">
-        <img src={session.user.image} alt="User image" />
-        <p>
-          {session.user.name} ({session.user.email})
-        </p>
-        <Link href="/create">
-          <button>
-            <a>New post</a>
-          </button>
-        </Link>
+  if (props.session !== null) {
+    return (
+      <div className={styles.right}>
+        <LinkButton routeInfo={View.routeMap.create} />
         <button onClick={() => signOut()}>
           <a>Log out</a>
         </button>
-        <style jsx>{`
-          a {
-            text-decoration: none;
-            color: var(--geist-foreground);
-            display: inline-block;
-          }
-
-          p {
-            display: inline-block;
-            font-size: 13px;
-            padding-right: 1rem;
-          }
-
-          a + a {
-            margin-left: 1rem;
-          }
-
-          .right {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-          }
-
-          .right a {
-            border: 1px solid var(--geist-foreground);
-            padding: 0.5rem 1rem;
-            border-radius: 3px;
-          }
-
-          .right img {
-            width: 32px;
-            height: 32px;
-            background-size: contain;
-            border-radius: 50%;
-            margin: 0 8px;
-          }
-
-          button {
-            border: none;
-          }
-        `}</style>
+        <img
+          className={styles.profilePicture}
+          src={props.session.user.image}
+          alt="User image"
+        />
+        <p className={styles.profileName}>{props.session.user.name}</p>
       </div>
     );
   }
 
   return (
+    <div className={styles.right}>
+      <Link routeInfo={View.routeMap.signIn} />
+    </div>
+  );
+};
+
+const Header: React.FC = () => {
+  const router = useRouter();
+  const isActive = (routeInfo: RouteInfo): boolean =>
+    router.pathname === routeInfo.route;
+
+  const { data: session, status } = useSession();
+
+  const isLoadingSession = status === "loading";
+  return (
     <nav>
-      {left}
-      {right}
-      <style jsx>{`
-        nav {
-          display: flex;
-          padding: 2rem;
-          align-items: center;
-        }
-      `}</style>
+      <div className={styles.container}>
+        <LeftContainer isActive={isActive} showDrafts={!!session} />
+        <RightContainer isLoadingSession={isLoadingSession} session={session} />
+      </div>
     </nav>
   );
 };
