@@ -15,7 +15,11 @@ export const getServerSideProps: GetServerSideProps<
   PostProps,
   GetServerSideParams
 > = async (req) => {
-  const id: string = req.params.id;
+  const id = req.params?.id;
+
+  if (id === undefined) {
+    throw new Error("Undefined post ID");
+  }
 
   const post = await Prisma.post.findUnique({
     where: {
@@ -30,6 +34,11 @@ export const getServerSideProps: GetServerSideProps<
       },
     },
   });
+
+  if (post === null) {
+    throw new Error(`Unable to fetch post by ID: ${id}`);
+  }
+
   return {
     props: post,
   };
@@ -56,7 +65,7 @@ const Post: React.FC<PostProps> = (props) => {
     return <div>Authenticating ...</div>;
   }
   const userHasValidSession = !!session;
-  const postBelongsToUser = session.user?.email === props.author?.email;
+  const postBelongsToUser = session?.user?.email === props.author?.email;
   let title = props.title;
   if (!props.published) {
     title = `${title} (Draft)`;
@@ -70,7 +79,7 @@ const Post: React.FC<PostProps> = (props) => {
       <div>
         <h2>{title}</h2>
         <p>By {props?.author?.name || "Unknown author"}</p>
-        <ReactMarkdown children={props.content} />
+        <ReactMarkdown children={props.content ?? ""} />
         {canPublish && (
           <button onClick={() => publishPost(props.id)}>Publish</button>
         )}
