@@ -1,9 +1,9 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 import { useSession, getSession } from "next-auth/react";
-import Layout from "../components/Layout";
-import Post, { PostProps } from "../components/Post";
-import prisma from "../lib/prisma";
+import Prisma from "../../lib/prisma";
+import Layout from "../../components/blog/Layout";
+import Post, { PostProps } from "../../components/blog/Post";
 
 export const getServerSideProps: GetServerSideProps<DraftProps> = async ({
   req,
@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps<DraftProps> = async ({
     return { props: { drafts: [] } };
   }
 
-  const drafts = await prisma.post.findMany({
+  const drafts = await Prisma.post.findMany({
     where: {
       author: { email: session.user?.email },
       published: false,
@@ -53,9 +53,7 @@ const Drafts: React.FC<DraftProps> = (props) => {
         <h1>My Drafts</h1>
         <main>
           {props.drafts.map((post) => (
-            <div key={post.id} className="post">
-              <Post post={post} />
-            </div>
+            <Post {...post} key={post.id} />
           ))}
         </main>
       </div>

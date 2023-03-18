@@ -2,14 +2,13 @@ import React from "react";
 import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
 import { Session } from "next-auth";
-import Link from "./generic/Link";
-import LinkButton from "./generic/LinkButton";
+import * as Routing from "../../lib/routing";
+import Link from "../generic/Link";
+import Button, { ButtonType } from "../generic/Button";
 import styles from "./Header.module.css";
-import * as View from "./view";
-import Button, { ButtonType } from "./generic/Button";
 
 interface LeftContainerProps {
-  isActive: (routeInfo: View.RouteInfo) => boolean;
+  isActive: (routeInfo: Routing.RouteInfo) => boolean;
   showDrafts: boolean;
 }
 
@@ -17,12 +16,12 @@ const LeftContainer = (props: LeftContainerProps): JSX.Element => {
   return (
     <div className={styles.left}>
       <Link
-        routeInfo={View.routeMap.feed}
-        isActive={props.isActive(View.routeMap.feed)}
+        routeInfo={Routing.routeMap.feed}
+        isActive={props.isActive(Routing.routeMap.feed)}
       />
       <Link
-        routeInfo={View.routeMap.drafts}
-        isActive={props.isActive(View.routeMap.drafts)}
+        routeInfo={Routing.routeMap.drafts}
+        isActive={props.isActive(Routing.routeMap.drafts)}
       />
     </div>
   );
@@ -62,14 +61,14 @@ const RightContainer = (props: RightContainerProps): JSX.Element => {
 
   return (
     <div className={styles.right}>
-      <Link routeInfo={View.routeMap.signIn} />
+      <Link routeInfo={Routing.routeMap.signIn} />
     </div>
   );
 };
 
 const Header: React.FC = () => {
   const router = useRouter();
-  const isActive = (routeInfo: View.RouteInfo): boolean =>
+  const isActive = (routeInfo: Routing.RouteInfo): boolean =>
     router.pathname === routeInfo.route;
 
   const { data: session, status } = useSession();

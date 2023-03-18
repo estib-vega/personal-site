@@ -1,10 +1,10 @@
 import React from "react";
 import NextLink from "next/link";
-import * as View from "../view";
+import * as Routing from "../../lib/routing";
 import Button, { ButtonType } from "./Button";
 
 export interface LinkButtonProps {
-  routeInfo: View.RouteInfo;
+  routeInfo: Routing.RouteInfo;
   buttonType?: ButtonType;
 }
 

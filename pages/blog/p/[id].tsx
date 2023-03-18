@@ -2,9 +2,9 @@ import React from "react";
 import { GetServerSideProps } from "next";
 import ReactMarkdown from "react-markdown";
 import Router from "next/router";
-import Layout from "../../components/Layout";
-import { PostProps } from "../../components/Post";
-import Prisma from "../../lib/prisma";
+import Layout from "../../../components/blog/Layout";
+import { PostProps } from "../../../components/blog/Post";
+import Prisma from "../../../lib/prisma";
 import { useSession } from "next-auth/react";
 
 type GetServerSideParams = {

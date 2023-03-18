@@ -1,10 +1,10 @@
 import React from "react";
 import NextLink from "next/link";
-import * as View from "../view";
+import * as Routing from "../../lib/routing";
 import styles from "./Link.module.css";
 
 export interface LinkProps {
-  routeInfo: View.RouteInfo;
+  routeInfo: Routing.RouteInfo;
   isActive?: boolean;
 }
 

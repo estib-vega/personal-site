@@ -10,7 +10,9 @@ interface SessionProps {
 const App = ({ Component, pageProps }: AppProps<SessionProps>) => {
   return (
     <SessionProvider session={pageProps.session}>
-      <Component {...pageProps} />
+      <div className="mainTheme">
+        <Component {...pageProps} />
+      </div>
     </SessionProvider>
   );
 };

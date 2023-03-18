@@ -1,7 +1,8 @@
 enum Route {
   Root = "/",
-  Drafts = "/drafts",
-  Create = "/create",
+  Feed = "/blog",
+  Drafts = "/blog/drafts",
+  Create = "/blog/create",
   APISignIn = "/api/auth/signin",
 }
 
@@ -12,12 +13,12 @@ export interface RouteInfo {
 
 export const routeMap = {
   landing: {
-    label: "Landing page",
+    label: "Home",
     route: Route.Root,
   },
   feed: {
     label: "Feed",
-    route: Route.Root,
+    route: Route.Feed,
   },
   drafts: {
     label: "Drafts",
