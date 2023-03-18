@@ -17,8 +17,11 @@ html {
   --half-size-unit: calc(var(--size-unit) / 2);
 
   --margin-size: var(--size-unit);
+  --margin-size-2: var(--four-size-unit);
   --padding: var(--size-unit) var(--double-size-unit);
+  --padding-2: var(--double-size-unit) var(--four-size-unit);
   --border-radius: var(--half-size-unit);
+  --border-radius-2: var(--size-unit);
 
   --font-size: var(--four-size-unit);
 
@@ -31,6 +34,9 @@ html {
   --main-font-color: white;
 
   --secondary-font-color: black;
+
+  --main-shadow-color: rgba(0, 0, 0, 0.15);
+  --main-shadow: 0 var(--half-size-unit) var(--double-size-unit) var(--main-shadow-color);
 }
 
 body {

@@ -1,0 +1,7 @@
+.post {
+  margin: var(--margin-size-2) var(--margin-size);
+  padding: var(--padding-2);
+
+  box-shadow: var(--main-shadow);
+  border-radius: var(--border-radius-2);
+}

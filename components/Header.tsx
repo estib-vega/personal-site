@@ -6,7 +6,6 @@ import Link from "./generic/Link";
 import LinkButton from "./generic/LinkButton";
 import styles from "./Header.module.css";
 import * as View from "./view";
-import { RouteInfo } from "./view";
 import Button, { ButtonType } from "./generic/Button";
 
 interface LeftContainerProps {
@@ -48,7 +47,6 @@ const RightContainer = (props: RightContainerProps): JSX.Element => {
   if (props.session?.user !== undefined) {
     return (
       <div className={styles.right}>
-        <LinkButton buttonType={ButtonType.Main} routeInfo={View.routeMap.create} />
         <Button type={ButtonType.Secondary} onClick={() => signOut()}>
           <a>Log out</a>
         </Button>
@@ -71,7 +69,7 @@ const RightContainer = (props: RightContainerProps): JSX.Element => {
 
 const Header: React.FC = () => {
   const router = useRouter();
-  const isActive = (routeInfo: RouteInfo): boolean =>
+  const isActive = (routeInfo: View.RouteInfo): boolean =>
     router.pathname === routeInfo.route;
 
   const { data: session, status } = useSession();

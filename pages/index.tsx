@@ -3,6 +3,9 @@ import { GetStaticProps } from "next";
 import Layout from "../components/Layout";
 import Post, { PostProps } from "../components/Post";
 import Prisma from "../lib/prisma";
+import * as View from "../components/view";
+import { ButtonType } from "../components/generic/Button";
+import LinkButton from "../components/generic/LinkButton";
 
 export const getStaticProps: GetStaticProps<BlogProps> = async () => {
   const feed = await Prisma.post.findMany({
@@ -26,13 +29,15 @@ interface BlogProps {
 const Blog: React.FC<BlogProps> = (props) => {
   return (
     <Layout>
-      <div className="page">
+      <div>
         <h1>Public Feed</h1>
+        <LinkButton
+          buttonType={ButtonType.Main}
+          routeInfo={View.routeMap.create}
+        />
         <main>
           {props.feed.map((post) => (
-            <div key={post.id} className="post">
-              <Post post={post} />
-            </div>
+            <Post {...post} key={post.id} />
           ))}
         </main>
       </div>
