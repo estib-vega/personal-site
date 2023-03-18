@@ -1,17 +1,20 @@
 import React from "react";
 import { GetStaticProps } from "next";
+import LandingPanel from "../components/LandingPanel";
+import { routeMap } from "../lib/routing";
+
+const LANDING_TITLE = "estib";
 
 export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {},
-    revalidate: 10,
   };
 };
 
 const Landing = () => {
   return (
     <div>
-      <h1>Welcome</h1>
+      <LandingPanel title={LANDING_TITLE} links={[routeMap.feed, routeMap.signIn]} />
     </div>
   );
 };

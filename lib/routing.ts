@@ -17,7 +17,7 @@ export const routeMap = {
     route: Route.Root,
   },
   feed: {
-    label: "Feed",
+    label: "Blog",
     route: Route.Feed,
   },
   drafts: {

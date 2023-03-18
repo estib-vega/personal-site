@@ -51,7 +51,7 @@ const RightContainer = (props: RightContainerProps): JSX.Element => {
         </Button>
         <img
           className={styles.profilePicture}
-          src={props.session.user.image ?? ''}
+          src={props.session.user.image ?? ""}
           alt="User image"
         />
         <p className={styles.profileName}>{props.session.user.name}</p>
@@ -59,11 +59,7 @@ const RightContainer = (props: RightContainerProps): JSX.Element => {
     );
   }
 
-  return (
-    <div className={styles.right}>
-      <Link routeInfo={Routing.routeMap.signIn} />
-    </div>
-  );
+  return <></>;
 };
 
 const Header: React.FC = () => {
