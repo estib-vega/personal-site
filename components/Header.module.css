@@ -15,12 +15,12 @@
 }
 
 .profilePicture {
-  width: 32px;
-  height: 32px;
+  width: var(--profile-picture-size);
+  height: var(--profile-picture-size);
   border-radius: 50%;
-  margin: 4px;
+  margin: var(--margin-size);
 }
 
 .profileName {
-  margin: 4px;
+  margin: var(--margin-size);
 }

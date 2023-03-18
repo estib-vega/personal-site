@@ -1,7 +1,7 @@
 .link {
-    margin: 0 4px;
+    margin: 0 var(--margin-size);
     text-decoration: none;
-    color: black;
+    color: var(--secondary-font-color);
 }
 
 .linkActive {

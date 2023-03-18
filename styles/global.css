@@ -8,18 +8,41 @@ html {
   box-sizing: inherit;
 }
 
+.mainTheme {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  /* Size */
+  --size-unit: 4px;
+  --double-size-unit: calc(var(--size-unit) * 2);
+  --four-size-unit: calc(var(--size-unit) * 4);
+  --half-size-unit: calc(var(--size-unit) / 2);
+
+  --margin-size: var(--size-unit);
+  --padding: var(--size-unit) var(--double-size-unit);
+  --border-radius: var(--half-size-unit);
+
+  --font-size: var(--four-size-unit);
+
+  --profile-picture-size: calc(var(--size-unit) * 10);
+
+  /* Colors */
+  --bg-color: white;
+
+  --main-color: #3179ff;
+  --main-font-color: white;
+
+  --secondary-font-color: black;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  background: rgba(0, 0, 0, 0.05);
+  font-size: var(--font-size);
+  background: var(--bg-color);
 }
 
 input,
 textarea {
-  font-size: 16px;
+  font-size: var(--font-size);
 }
 
 button {
