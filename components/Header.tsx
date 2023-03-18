@@ -7,6 +7,7 @@ import LinkButton from "./generic/LinkButton";
 import styles from "./Header.module.css";
 import * as View from "./view";
 import { RouteInfo } from "./view";
+import Button, { ButtonType } from "./generic/Button";
 
 interface LeftContainerProps {
   isActive: (routeInfo: View.RouteInfo) => boolean;
@@ -44,16 +45,16 @@ const RightContainer = (props: RightContainerProps): JSX.Element => {
     );
   }
 
-  if (props.session !== null) {
+  if (props.session?.user !== undefined) {
     return (
       <div className={styles.right}>
-        <LinkButton routeInfo={View.routeMap.create} />
-        <button onClick={() => signOut()}>
+        <LinkButton buttonType={ButtonType.Main} routeInfo={View.routeMap.create} />
+        <Button type={ButtonType.Secondary} onClick={() => signOut()}>
           <a>Log out</a>
-        </button>
+        </Button>
         <img
           className={styles.profilePicture}
-          src={props.session.user.image}
+          src={props.session.user.image ?? ''}
           alt="User image"
         />
         <p className={styles.profileName}>{props.session.user.name}</p>

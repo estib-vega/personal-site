@@ -1,0 +1,20 @@
+.button {
+  background-color: white;
+  border: none;
+  margin: 0 4px;
+  padding: 4px 8px;
+  border-radius: 2px;
+  text-decoration: none;
+}
+
+.mainButton {
+  composes: button;
+  background-color: #3179ff;
+  color: white;
+}
+
+.secondaryButton {
+  composes: button;
+  background-color: transparent;
+  text-decoration: underline;
+}
