@@ -11,9 +11,9 @@ export interface LinkButtonProps {
 const LinkButton = (props: LinkButtonProps): JSX.Element => {
   return (
     <NextLink href={props.routeInfo.route}>
-      <Button type={props.buttonType}>
-        <a>{props.routeInfo.label}</a>
-      </Button>
+      <a>
+        <Button type={props.buttonType}>{props.routeInfo.label}</Button>
+      </a>
     </NextLink>
   );
 };
