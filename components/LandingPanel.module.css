@@ -22,15 +22,28 @@
 }
 
 .title {
+  animation: fade-in 400ms ease-in-out;
   margin: var(--size-unit) 0;
   padding: var(--size-unit) 0;
   font-size: var(--font-size-title);
 }
 
 .link {
+  animation: fade-in 200ms ease-in-out;
   margin: var(--size-unit) 0;
   padding: var(--size-unit) 0;
   font-size: var(--font-size-title-2);
   text-decoration: none;
   color: var(--main-font-color);
+}
+
+@keyframes fade-in {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
