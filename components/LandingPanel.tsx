@@ -18,7 +18,12 @@ const LandingPanel = (props: LandingPanelProps): JSX.Element => {
     <div className={styles.container}>
       <div className={styles.subContainer}>
         {props.links.map((link) => (
-            <Link className={styles.link} routeInfo={link} isActive={isActive(link)} />
+          <Link
+            className={styles.link}
+            routeInfo={link}
+            isActive={isActive(link)}
+            key={link.route}
+          />
         ))}
         <h1 className={styles.title}>{props.title}</h1>
       </div>

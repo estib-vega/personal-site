@@ -15,14 +15,17 @@ interface LeftContainerProps {
 const LeftContainer = (props: LeftContainerProps): JSX.Element => {
   return (
     <div className={styles.left}>
-      <Link
-        routeInfo={Routing.routeMap.feed}
-        isActive={props.isActive(Routing.routeMap.feed)}
-      />
-      <Link
-        routeInfo={Routing.routeMap.drafts}
-        isActive={props.isActive(Routing.routeMap.drafts)}
-      />
+      {[
+        Routing.routeMap.landing,
+        Routing.routeMap.feed,
+        Routing.routeMap.drafts,
+      ].map((link) => (
+        <Link
+          routeInfo={link}
+          isActive={props.isActive(link)}
+          key={link.route}
+        />
+      ))}
     </div>
   );
 };

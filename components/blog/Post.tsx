@@ -1,6 +1,6 @@
 import React from "react";
-import Router from "next/router";
 import ReactMarkdown from "react-markdown";
+import * as Routing from "../../lib/routing";
 import styles from "./Post.module.css";
 
 export interface PostProps {
@@ -17,10 +17,7 @@ export interface PostProps {
 const Post = (props: PostProps): JSX.Element => {
   const authorName = props.author?.name ?? "Unknown author";
   return (
-    <div
-      className={styles.post}
-      onClick={() => Router.push("/p/[id]", `/p/${props.id}`)}
-    >
+    <div className={styles.post} onClick={() => Routing.goToPost(props.id)}>
       <h2>{props.title}</h2>
       <small>By {authorName}</small>
       <ReactMarkdown children={props.content ?? ""} />

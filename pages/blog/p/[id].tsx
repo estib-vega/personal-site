@@ -1,7 +1,7 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 import ReactMarkdown from "react-markdown";
-import Router from "next/router";
+import * as Routing from "../../../lib/routing";
 import Layout from "../../../components/blog/Layout";
 import { PostProps } from "../../../components/blog/Post";
 import Prisma from "../../../lib/prisma";
@@ -48,15 +48,14 @@ async function publishPost(id: string): Promise<void> {
   await fetch(`/api/publish/${id}`, {
     method: "PUT",
   });
-  await Router.push("/");
+  await Routing.goTo(Routing.Route.Root);
 }
 
 async function deletePost(id: string): Promise<void> {
   await fetch(`/api/post/${id}`, {
     method: "DELETE",
   });
-
-  Router.push("/");
+  await Routing.goTo(Routing.Route.Root);
 }
 
 const Post: React.FC<PostProps> = (props) => {

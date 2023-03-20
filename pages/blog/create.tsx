@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Router from "next/router";
+import * as Routing from "../../lib/routing";
 import Layout from "../../components/blog/Layout";
 
 const Draft: React.FC = () => {
@@ -15,7 +15,7 @@ const Draft: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      await Router.push("/drafts");
+      await Routing.goTo(Routing.Route.Drafts);
     } catch (error) {
       console.error(error);
     }
@@ -41,7 +41,11 @@ const Draft: React.FC = () => {
             value={content}
           />
           <input disabled={!content || !title} type="submit" value="Create" />
-          <a className="back" href="#" onClick={() => Router.push("/")}>
+          <a
+            className="back"
+            href="#"
+            onClick={() => Routing.goTo(Routing.Route.Create)}
+          >
             or Cancel
           </a>
         </form>

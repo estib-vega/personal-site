@@ -1,4 +1,6 @@
-enum Route {
+import Router from "next/router";
+
+export enum Route {
   Root = "/",
   Feed = "/blog",
   Drafts = "/blog/drafts",
@@ -33,3 +35,11 @@ export const routeMap = {
     route: Route.APISignIn,
   }
 };
+
+export function goTo(route: Route): Promise<boolean> {
+  return Router.push(route);
+}
+
+export function goToPost(postId: string): Promise<boolean> {
+  return Router.push("/blog/p/[id]", `/blog/p/${postId}`);
+}
