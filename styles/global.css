@@ -18,6 +18,7 @@ html {
   --six-size-unit: calc(var(--size-unit) * 6);
   --eight-size-unit: calc(var(--size-unit) * 8);
   --ten-size-unit: calc(var(--size-unit) * 10);
+  --fifty-size-unit: calc(var(--size-unit) * 50);
   --half-size-unit: calc(var(--size-unit) / 2);
 
   --margin-size: var(--size-unit);
@@ -33,7 +34,8 @@ html {
   --font-size-title-2: var(--eight-size-unit);
   --font-size-title-3: var(--six-size-unit);
 
-  --profile-picture-size: calc(var(--size-unit) * 10);
+  --profile-picture-size: var(--ten-size-unit);
+  --profile-picture-big-size: var(--fifty-size-unit);
 
   /* Colors */
   --bg-color: white;

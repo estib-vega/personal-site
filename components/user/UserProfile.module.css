@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--padding-panel);
+}
+
+.profilePicture {
+  height: var(--profile-picture-big-size);
+  width: var(--profile-picture-big-size);
+  border-radius: 50%;
+  box-shadow: var(--main-shadow);
+}
