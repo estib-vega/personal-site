@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius-3);
+  box-shadow: var(--main-shadow);
+  padding: var(--padding);
+  cursor: pointer;
+}
+
+.profilePicture {
+  width: var(--profile-picture-size);
+  height: var(--profile-picture-size);
+  border-radius: 50%;
+  margin: var(--margin-size);
+}
+
+.profileName {
+  margin: var(--margin-size);
+}

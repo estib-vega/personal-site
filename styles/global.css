@@ -28,6 +28,7 @@ html {
   --padding-panel: 1rem 2rem;
   --border-radius: var(--half-size-unit);
   --border-radius-2: var(--size-unit);
+  --border-radius-3: var(--double-size-unit);
 
   --font-size: var(--four-size-unit);
   --font-size-title: var(--ten-size-unit);

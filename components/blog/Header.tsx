@@ -1,10 +1,10 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 import * as Routing from "../../lib/routing";
 import Link from "../generic/Link";
-import Button, { ButtonType } from "../generic/Button";
+import UserPill from "../user/UserPill";
 import styles from "./Header.module.css";
 
 interface LeftContainerProps {
@@ -46,18 +46,12 @@ const RightContainer = (props: RightContainerProps): JSX.Element => {
     );
   }
 
-  if (props.session?.user !== undefined) {
+  if (!!props.session?.user) {
+    const userName = props.session.user.name ?? "";
+    const userImage = props.session.user.image ?? "";
     return (
       <div className={styles.right}>
-        <Button type={ButtonType.Secondary} onClick={() => signOut()}>
-          <a>Log out</a>
-        </Button>
-        <img
-          className={styles.profilePicture}
-          src={props.session.user.image ?? ""}
-          alt="User image"
-        />
-        <p className={styles.profileName}>{props.session.user.name}</p>
+        <UserPill name={userName} image={userImage} />
       </div>
     );
   }
