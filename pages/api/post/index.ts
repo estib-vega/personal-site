@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
+import * as Auth from "../../../lib/auth";
 import prisma from "../../../lib/prisma";
 
 // POST /api/post
@@ -11,11 +12,19 @@ export default async function handle(
 ) {
   const { title, content } = req.body;
 
-  const session = await getSession({ req });
-  const email = session?.user?.email;
-  if (typeof email !== "string") {
-    throw new Error(`Could not get author email: ${session}`);
+  const session = await getServerSession(req, res, Auth.authOptions);
+  const sessionValidity = Auth.validateSession(session);
+
+  if (sessionValidity !== Auth.SessionValidity.Admin) {
+    res.status(401).json({ message: "Unauthorized to create post" });
+    return;
   }
+
+  const email = session?.user?.email;
+  if (!email) {
+    throw new Error(`Session validated but email is undefined ${session}`);
+  }
+
   const result = await prisma.post.create({
     data: {
       title: title,
