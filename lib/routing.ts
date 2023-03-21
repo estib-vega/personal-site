@@ -38,7 +38,7 @@ export const routeMap = {
   user: {
     label: "User",
     route: Route.User,
-  }
+  },
 };
 
 export function goTo(route: Route): Promise<boolean> {

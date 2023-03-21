@@ -1,6 +1,6 @@
 import { Session } from "next-auth";
 
-const adminUsers: string[] = process.env.ALLOWED_USER_EMAILS?.split(',') ?? [];
+const adminUsers: string[] = process.env.ALLOWED_USER_EMAILS?.split(",") ?? [];
 
 export enum SessionValidity {
   NoSession,

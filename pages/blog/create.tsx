@@ -1,18 +1,20 @@
 import React, { useState } from "react";
+
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth/next";
+
 import Layout from "../../components/blog/Layout";
-import * as Routing from "../../lib/routing";
 import * as Auth from "../../lib/auth";
+import * as Routing from "../../lib/routing";
 import * as Session from "../../lib/session";
 
 export const getServerSideProps: GetServerSideProps<DraftProps> = async (
-  context
+  context,
 ) => {
   const session = await getServerSession(
     context.req,
     context.res,
-    Auth.authOptions
+    Auth.authOptions,
   );
   const sessionValidity = Session.validateSession(session);
 

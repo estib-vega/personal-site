@@ -1,14 +1,17 @@
 import React from "react";
+
 import { GetServerSideProps } from "next";
-import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
+import { useSession } from "next-auth/react";
+
 import ReactMarkdown from "react-markdown";
+
 import Layout from "../../../components/blog/Layout";
 import { PostProps } from "../../../components/blog/Post";
 import * as Auth from "../../../lib/auth";
-import * as Session from "../../../lib/session";
-import * as Routing from "../../../lib/routing";
 import Prisma from "../../../lib/prisma";
+import * as Routing from "../../../lib/routing";
+import * as Session from "../../../lib/session";
 
 type GetServerSideParams = {
   id: string;
@@ -45,7 +48,7 @@ export const getServerSideProps: GetServerSideProps<
   const session = await getServerSession(
     context.req,
     context.res,
-    Auth.authOptions
+    Auth.authOptions,
   );
   const sessionValidity = Session.validateSession(session);
 

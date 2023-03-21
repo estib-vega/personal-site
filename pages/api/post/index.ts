@@ -1,15 +1,16 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
+
 import * as Auth from "../../../lib/auth";
-import * as Session from "../../../lib/session";
 import prisma from "../../../lib/prisma";
+import * as Session from "../../../lib/session";
 
 // POST /api/post
 // Required fields in body: title
 // Optional fields in body: content
 export default async function handle(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const { title, content } = req.body;
 

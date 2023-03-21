@@ -1,6 +1,7 @@
-import { signOut, useSession } from "next-auth/react";
 import React from "react";
-import Button, { ButtonType } from "../components/generic/Button";
+
+import { useSession } from "next-auth/react";
+
 import NoUser from "../components/user/NoUser";
 import UserProfile from "../components/user/UserProfile";
 

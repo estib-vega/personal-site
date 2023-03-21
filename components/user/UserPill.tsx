@@ -1,6 +1,7 @@
 import React from "react";
-import styles from "./UserPill.module.css";
+
 import * as Routing from "../../lib/routing";
+import styles from "./UserPill.module.css";
 
 interface UserPillProps {
   name: string;

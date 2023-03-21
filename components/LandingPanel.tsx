@@ -1,8 +1,10 @@
 import React from "react";
+
 import { useRouter } from "next/router";
+
 import * as Routing from "../lib/routing";
-import Link from "./generic/Link";
 import styles from "./LandingPanel.module.css";
+import Link from "./generic/Link";
 
 interface LandingPanelProps {
   title: string;

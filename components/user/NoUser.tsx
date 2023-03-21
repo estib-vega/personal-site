@@ -1,7 +1,8 @@
 import React from "react";
+
+import * as Routing from "../../lib/routing";
 import { ButtonType } from "../generic/Button";
 import LinkButton from "../generic/LinkButton";
-import * as Routing from "../../lib/routing";
 import styles from "./NoUser.module.css";
 
 const NoUser = (): JSX.Element => {

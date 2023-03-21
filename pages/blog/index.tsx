@@ -1,22 +1,24 @@
 import React from "react";
+
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth/next";
-import Prisma from "../../lib/prisma";
-import * as Routing from "../../lib/routing";
-import * as Auth from "../../lib/auth";
-import * as Session from "../../lib/session";
+
 import Layout from "../../components/blog/Layout";
 import Post, { PostProps } from "../../components/blog/Post";
 import { ButtonType } from "../../components/generic/Button";
 import LinkButton from "../../components/generic/LinkButton";
+import * as Auth from "../../lib/auth";
+import Prisma from "../../lib/prisma";
+import * as Routing from "../../lib/routing";
+import * as Session from "../../lib/session";
 
 export const getServerSideProps: GetServerSideProps<BlogProps> = async (
-  context
+  context,
 ) => {
   const session = await getServerSession(
     context.req,
     context.res,
-    Auth.authOptions
+    Auth.authOptions,
   );
   const sessionValidity = Session.validateSession(session);
 

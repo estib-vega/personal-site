@@ -1,20 +1,22 @@
 import React from "react";
+
 import { GetServerSideProps } from "next";
-import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
-import Prisma from "../../lib/prisma";
-import * as Auth from "../../lib/auth";
-import * as Session from "../../lib/session";
+import { useSession } from "next-auth/react";
+
 import Layout from "../../components/blog/Layout";
 import Post, { PostProps } from "../../components/blog/Post";
+import * as Auth from "../../lib/auth";
+import Prisma from "../../lib/prisma";
+import * as Session from "../../lib/session";
 
 export const getServerSideProps: GetServerSideProps<DraftProps> = async (
-  context
+  context,
 ) => {
   const session = await getServerSession(
     context.req,
     context.res,
-    Auth.authOptions
+    Auth.authOptions,
   );
 
   const sessionValidity = Session.validateSession(session);

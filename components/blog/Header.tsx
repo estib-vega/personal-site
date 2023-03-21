@@ -1,10 +1,11 @@
 import React from "react";
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+
 import * as NextAuth from "next-auth";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+
 import * as Routing from "../../lib/routing";
 import * as Session from "../../lib/session";
-import * as Auth from "../../lib/auth";
 import Link from "../generic/Link";
 import UserPill from "../user/UserPill";
 import styles from "./Header.module.css";
@@ -84,7 +85,10 @@ const Header = (props: HeaderProps): JSX.Element => {
   return (
     <nav>
       <div className={styles.container}>
-        <LeftContainer isActive={isActive} sessionValidity={props.sessionValidity} />
+        <LeftContainer
+          isActive={isActive}
+          sessionValidity={props.sessionValidity}
+        />
         <RightContainer isLoadingSession={isLoadingSession} session={session} />
       </div>
     </nav>

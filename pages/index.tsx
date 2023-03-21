@@ -1,5 +1,7 @@
 import React from "react";
+
 import { GetStaticProps } from "next";
+
 import LandingPanel from "../components/LandingPanel";
 import { routeMap } from "../lib/routing";
 
@@ -14,7 +16,10 @@ export const getStaticProps: GetStaticProps = async () => {
 const Landing = () => {
   return (
     <div>
-      <LandingPanel title={LANDING_TITLE} links={[routeMap.feed, routeMap.signIn]} />
+      <LandingPanel
+        title={LANDING_TITLE}
+        links={[routeMap.feed, routeMap.signIn]}
+      />
     </div>
   );
 };
