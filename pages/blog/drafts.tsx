@@ -1,18 +1,27 @@
 import React from "react";
 import { GetServerSideProps } from "next";
-import { useSession, getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
 import Prisma from "../../lib/prisma";
+import * as Auth from "../../lib/auth";
+import * as Session from "../../lib/session";
 import Layout from "../../components/blog/Layout";
 import Post, { PostProps } from "../../components/blog/Post";
 
-export const getServerSideProps: GetServerSideProps<DraftProps> = async ({
-  req,
-  res,
-}) => {
-  const session = await getSession({ req });
+export const getServerSideProps: GetServerSideProps<DraftProps> = async (
+  context
+) => {
+  const session = await getServerSession(
+    context.req,
+    context.res,
+    Auth.authOptions
+  );
+
+  const sessionValidity = Session.validateSession(session);
+
   if (!session) {
-    res.statusCode = 403;
-    return { props: { drafts: [] } };
+    context.res.statusCode = 403;
+    return { props: { drafts: [], sessionValidity } };
   }
 
   const drafts = await Prisma.post.findMany({
@@ -26,21 +35,23 @@ export const getServerSideProps: GetServerSideProps<DraftProps> = async ({
       },
     },
   });
+
   return {
-    props: { drafts },
+    props: { drafts, sessionValidity },
   };
 };
 
 type DraftProps = {
   drafts: PostProps[];
+  sessionValidity: Session.SessionValidity;
 };
 
-const Drafts: React.FC<DraftProps> = (props) => {
+const Drafts = (props: DraftProps): JSX.Element => {
   const { data: session } = useSession();
 
   if (!session) {
     return (
-      <Layout>
+      <Layout sessionValidity={props.sessionValidity}>
         <h1>My Drafts</h1>
         <div>You need to be authenticated to view this page.</div>
       </Layout>
@@ -48,7 +59,7 @@ const Drafts: React.FC<DraftProps> = (props) => {
   }
 
   return (
-    <Layout>
+    <Layout sessionValidity={props.sessionValidity}>
       <div className="page">
         <h1>My Drafts</h1>
         <main>

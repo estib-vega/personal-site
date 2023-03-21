@@ -1,8 +1,29 @@
 import React, { useState } from "react";
-import * as Routing from "../../lib/routing";
+import { GetServerSideProps } from "next";
+import { getServerSession } from "next-auth/next";
 import Layout from "../../components/blog/Layout";
+import * as Routing from "../../lib/routing";
+import * as Auth from "../../lib/auth";
+import * as Session from "../../lib/session";
 
-const Draft: React.FC = () => {
+export const getServerSideProps: GetServerSideProps<DraftProps> = async (
+  context
+) => {
+  const session = await getServerSession(
+    context.req,
+    context.res,
+    Auth.authOptions
+  );
+  const sessionValidity = Session.validateSession(session);
+
+  return { props: { sessionValidity } };
+};
+
+interface DraftProps {
+  sessionValidity: Session.SessionValidity;
+}
+
+const Draft = (props: DraftProps): JSX.Element => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -22,7 +43,7 @@ const Draft: React.FC = () => {
   };
 
   return (
-    <Layout>
+    <Layout sessionValidity={props.sessionValidity}>
       <div>
         <form onSubmit={submitData}>
           <h1>New Draft</h1>

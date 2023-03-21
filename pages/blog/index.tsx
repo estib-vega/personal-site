@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth/next";
 import Prisma from "../../lib/prisma";
 import * as Routing from "../../lib/routing";
 import * as Auth from "../../lib/auth";
+import * as Session from "../../lib/session";
 import Layout from "../../components/blog/Layout";
 import Post, { PostProps } from "../../components/blog/Post";
 import { ButtonType } from "../../components/generic/Button";
@@ -17,7 +18,7 @@ export const getServerSideProps: GetServerSideProps<BlogProps> = async (
     context.res,
     Auth.authOptions
   );
-  const sessionValidity = Auth.validateSession(session);
+  const sessionValidity = Session.validateSession(session);
 
   const feed = await Prisma.post.findMany({
     where: { published: true },
@@ -28,24 +29,23 @@ export const getServerSideProps: GetServerSideProps<BlogProps> = async (
     },
   });
 
-  const canCreatePost = sessionValidity === Auth.SessionValidity.Admin;
-
   return {
-    props: { feed, canCreatePost },
+    props: { feed, sessionValidity },
   };
 };
 
 interface BlogProps {
   feed: PostProps[];
-  canCreatePost: boolean;
+  sessionValidity: Session.SessionValidity;
 }
 
 const Blog = (props: BlogProps): JSX.Element => {
+  const canCreatePost = props.sessionValidity === Session.SessionValidity.Admin;
   return (
-    <Layout>
+    <Layout sessionValidity={props.sessionValidity}>
       <div>
         <h1>Public Feed</h1>
-        {props.canCreatePost && (
+        {canCreatePost && (
           <LinkButton
             buttonType={ButtonType.Main}
             routeInfo={Routing.routeMap.create}

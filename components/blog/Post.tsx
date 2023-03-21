@@ -20,7 +20,7 @@ const Post = (props: PostProps): JSX.Element => {
     <div className={styles.post} onClick={() => Routing.goToPost(props.id)}>
       <h2>{props.title}</h2>
       <small>By {authorName}</small>
-      <ReactMarkdown children={props.content ?? ""} />
+      <ReactMarkdown>{props.content ?? ""}</ReactMarkdown>
     </div>
   );
 };

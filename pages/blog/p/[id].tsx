@@ -1,21 +1,24 @@
 import React from "react";
 import { GetServerSideProps } from "next";
+import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
 import ReactMarkdown from "react-markdown";
-import * as Routing from "../../../lib/routing";
 import Layout from "../../../components/blog/Layout";
 import { PostProps } from "../../../components/blog/Post";
+import * as Auth from "../../../lib/auth";
+import * as Session from "../../../lib/session";
+import * as Routing from "../../../lib/routing";
 import Prisma from "../../../lib/prisma";
-import { useSession } from "next-auth/react";
 
 type GetServerSideParams = {
   id: string;
 };
 
 export const getServerSideProps: GetServerSideProps<
-  PostProps,
+  PostViewProps,
   GetServerSideParams
-> = async (req) => {
-  const id = req.params?.id;
+> = async (context) => {
+  const id = context.params?.id;
 
   if (id === undefined) {
     throw new Error("Undefined post ID");
@@ -39,8 +42,15 @@ export const getServerSideProps: GetServerSideProps<
     throw new Error(`Unable to fetch post by ID: ${id}`);
   }
 
+  const session = await getServerSession(
+    context.req,
+    context.res,
+    Auth.authOptions
+  );
+  const sessionValidity = Session.validateSession(session);
+
   return {
-    props: post,
+    props: { ...post, sessionValidity },
   };
 };
 
@@ -58,7 +68,11 @@ async function deletePost(id: string): Promise<void> {
   await Routing.goTo(Routing.Route.Root);
 }
 
-const Post: React.FC<PostProps> = (props) => {
+interface PostViewProps extends PostProps {
+  sessionValidity: Session.SessionValidity;
+}
+
+const PostView = (props: PostViewProps): JSX.Element => {
   const { data: session, status } = useSession();
   if (status === "loading") {
     return <div>Authenticating ...</div>;
@@ -70,15 +84,16 @@ const Post: React.FC<PostProps> = (props) => {
     title = `${title} (Draft)`;
   }
 
-  const canPublish = !props.published && userHasValidSession && postBelongsToUser;
+  const canPublish =
+    !props.published && userHasValidSession && postBelongsToUser;
   const canDelete = userHasValidSession && postBelongsToUser;
 
   return (
-    <Layout>
+    <Layout sessionValidity={props.sessionValidity}>
       <div>
         <h2>{title}</h2>
         <p>By {props?.author?.name || "Unknown author"}</p>
-        <ReactMarkdown children={props.content ?? ""} />
+        <ReactMarkdown>{props.content ?? ""}</ReactMarkdown>
         {canPublish && (
           <button onClick={() => publishPost(props.id)}>Publish</button>
         )}
@@ -111,4 +126,4 @@ const Post: React.FC<PostProps> = (props) => {
   );
 };
 
-export default Post;
+export default PostView;

@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
 import * as Auth from "../../../lib/auth";
+import * as Session from "../../../lib/session";
 import prisma from "../../../lib/prisma";
 
 // POST /api/post
@@ -13,9 +14,9 @@ export default async function handle(
   const { title, content } = req.body;
 
   const session = await getServerSession(req, res, Auth.authOptions);
-  const sessionValidity = Auth.validateSession(session);
+  const sessionValidity = Session.validateSession(session);
 
-  if (sessionValidity !== Auth.SessionValidity.Admin) {
+  if (sessionValidity !== Session.SessionValidity.Admin) {
     res.status(401).json({ message: "Unauthorized to create post" });
     return;
   }
