@@ -1,7 +1,9 @@
 import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
+import NextNProgress from "nextjs-progressbar";
 
+import { LOADING_VAR_COLOR } from "../styles/colors";
 import "../styles/global.css";
 
 interface SessionProps {
@@ -11,9 +13,8 @@ interface SessionProps {
 const App = ({ Component, pageProps }: AppProps<SessionProps>) => {
   return (
     <SessionProvider session={pageProps.session}>
-      <div className="mainTheme">
-        <Component {...pageProps} />
-      </div>
+      <NextNProgress color={LOADING_VAR_COLOR} />
+      <Component {...pageProps} />
     </SessionProvider>
   );
 };
