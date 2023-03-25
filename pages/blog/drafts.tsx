@@ -10,14 +10,8 @@ import * as Auth from "../../lib/auth";
 import Prisma from "../../lib/prisma";
 import * as Session from "../../lib/session";
 
-export const getServerSideProps: GetServerSideProps<DraftProps> = async (
-  context,
-) => {
-  const session = await getServerSession(
-    context.req,
-    context.res,
-    Auth.authOptions,
-  );
+export const getServerSideProps: GetServerSideProps<DraftProps> = async (context) => {
+  const session = await getServerSession(context.req, context.res, Auth.authOptions);
 
   const sessionValidity = Session.validateSession(session);
 

@@ -8,14 +8,8 @@ import * as Auth from "../../lib/auth";
 import * as Routing from "../../lib/routing";
 import * as Session from "../../lib/session";
 
-export const getServerSideProps: GetServerSideProps<DraftProps> = async (
-  context,
-) => {
-  const session = await getServerSession(
-    context.req,
-    context.res,
-    Auth.authOptions,
-  );
+export const getServerSideProps: GetServerSideProps<DraftProps> = async (context) => {
+  const session = await getServerSession(context.req, context.res, Auth.authOptions);
   const sessionValidity = Session.validateSession(session);
 
   return { props: { sessionValidity } };
@@ -64,11 +58,7 @@ const Draft = (props: DraftProps): JSX.Element => {
             value={content}
           />
           <input disabled={!content || !title} type="submit" value="Create" />
-          <a
-            className="back"
-            href="#"
-            onClick={() => Routing.goTo(Routing.Route.Create)}
-          >
+          <a className="back" href="#" onClick={() => Routing.goTo(Routing.Route.Create)}>
             or Cancel
           </a>
         </form>

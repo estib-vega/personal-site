@@ -10,15 +10,8 @@ interface UserPillProps {
 
 const UserPill = (props: UserPillProps): JSX.Element => {
   return (
-    <div
-      className={styles.container}
-      onClick={() => Routing.goTo(Routing.Route.User)}
-    >
-      <img
-        className={styles.profilePicture}
-        src={props.image}
-        alt="User image"
-      />
+    <div className={styles.container} onClick={() => Routing.goTo(Routing.Route.User)}>
+      <img className={styles.profilePicture} src={props.image} alt="User image" />
       <p className={styles.profileName}>{props.name}</p>
     </div>
   );

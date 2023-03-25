@@ -10,10 +10,7 @@ const NoUser = (): JSX.Element => {
     <div className={styles.container}>
       <div className={styles.contentWrapper}>
         <h2>No user logged in</h2>
-        <LinkButton
-          buttonType={ButtonType.Main}
-          routeInfo={Routing.routeMap.signIn}
-        />
+        <LinkButton buttonType={ButtonType.Main} routeInfo={Routing.routeMap.signIn} />
       </div>
     </div>
   );

@@ -14,11 +14,7 @@ interface UserProfileProps {
 const UserProfile = (props: UserProfileProps): JSX.Element => {
   return (
     <div className={styles.container}>
-      <img
-        className={styles.profilePicture}
-        src={props.image}
-        alt="User profile picture"
-      />
+      <img className={styles.profilePicture} src={props.image} alt="User profile picture" />
       <h2>{props.name}</h2>
       <h3>{props.email}</h3>
       <Button type={ButtonType.Main} onClick={() => signOut()}>

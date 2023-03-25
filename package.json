@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "prettier ./**/*.ts -w && prettier ./**/*.tsx -w"
+    "prettier": "prettier {lib,styles}/**/*.ts {components,pages}/**/*.tsx -w"
   },
   "keywords": [],
   "author": "",

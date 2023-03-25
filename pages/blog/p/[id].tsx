@@ -17,10 +17,9 @@ type GetServerSideParams = {
   id: string;
 };
 
-export const getServerSideProps: GetServerSideProps<
-  PostViewProps,
-  GetServerSideParams
-> = async (context) => {
+export const getServerSideProps: GetServerSideProps<PostViewProps, GetServerSideParams> = async (
+  context,
+) => {
   const id = context.params?.id;
 
   if (id === undefined) {
@@ -45,11 +44,7 @@ export const getServerSideProps: GetServerSideProps<
     throw new Error(`Unable to fetch post by ID: ${id}`);
   }
 
-  const session = await getServerSession(
-    context.req,
-    context.res,
-    Auth.authOptions,
-  );
+  const session = await getServerSession(context.req, context.res, Auth.authOptions);
   const sessionValidity = Session.validateSession(session);
 
   return {
@@ -87,8 +82,7 @@ const PostView = (props: PostViewProps): JSX.Element => {
     title = `${title} (Draft)`;
   }
 
-  const canPublish =
-    !props.published && userHasValidSession && postBelongsToUser;
+  const canPublish = !props.published && userHasValidSession && postBelongsToUser;
   const canDelete = userHasValidSession && postBelongsToUser;
 
   return (
@@ -97,12 +91,8 @@ const PostView = (props: PostViewProps): JSX.Element => {
         <h2>{title}</h2>
         <p>By {props?.author?.name || "Unknown author"}</p>
         <ReactMarkdown>{props.content ?? ""}</ReactMarkdown>
-        {canPublish && (
-          <button onClick={() => publishPost(props.id)}>Publish</button>
-        )}
-        {canDelete && (
-          <button onClick={() => deletePost(props.id)}>Delete</button>
-        )}
+        {canPublish && <button onClick={() => publishPost(props.id)}>Publish</button>}
+        {canDelete && <button onClick={() => deletePost(props.id)}>Delete</button>}
       </div>
       <style jsx>{`
         .page {

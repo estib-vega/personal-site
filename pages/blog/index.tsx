@@ -12,14 +12,8 @@ import Prisma from "../../lib/prisma";
 import * as Routing from "../../lib/routing";
 import * as Session from "../../lib/session";
 
-export const getServerSideProps: GetServerSideProps<BlogProps> = async (
-  context,
-) => {
-  const session = await getServerSession(
-    context.req,
-    context.res,
-    Auth.authOptions,
-  );
+export const getServerSideProps: GetServerSideProps<BlogProps> = async (context) => {
+  const session = await getServerSession(context.req, context.res, Auth.authOptions);
   const sessionValidity = Session.validateSession(session);
 
   const feed = await Prisma.post.findMany({
@@ -48,10 +42,7 @@ const Blog = (props: BlogProps): JSX.Element => {
       <div>
         <h1>Public Feed</h1>
         {canCreatePost && (
-          <LinkButton
-            buttonType={ButtonType.Main}
-            routeInfo={Routing.routeMap.create}
-          />
+          <LinkButton buttonType={ButtonType.Main} routeInfo={Routing.routeMap.create} />
         )}
         <main>
           {props.feed.map((post) => (
