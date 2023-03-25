@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 
 import ReactMarkdown from "react-markdown";
 
-import Layout from "../../../components/blog/Layout";
+import BlogLayout from "../../../components/blog/BlogLayout";
 import { PostProps } from "../../../components/blog/Post";
 import * as Auth from "../../../lib/auth";
 import Prisma from "../../../lib/prisma";
@@ -92,7 +92,7 @@ const PostView = (props: PostViewProps): JSX.Element => {
   const canDelete = userHasValidSession && postBelongsToUser;
 
   return (
-    <Layout sessionValidity={props.sessionValidity}>
+    <BlogLayout sessionValidity={props.sessionValidity}>
       <div>
         <h2>{title}</h2>
         <p>By {props?.author?.name || "Unknown author"}</p>
@@ -125,7 +125,7 @@ const PostView = (props: PostViewProps): JSX.Element => {
           margin-left: 1rem;
         }
       `}</style>
-    </Layout>
+    </BlogLayout>
   );
 };
 

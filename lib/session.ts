@@ -8,6 +8,9 @@ export enum SessionValidity {
   InvalidSession,
 }
 
+/**
+ * Determine the validity of the current session
+ */
 export function validateSession(session: Session | null): SessionValidity {
   const email = session?.user?.email;
   if (!email) {

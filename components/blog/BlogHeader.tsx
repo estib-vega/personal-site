@@ -4,11 +4,11 @@ import * as Routing from "../../lib/routing";
 import * as Session from "../../lib/session";
 import Header from "../common/Header";
 
-interface HeaderProps {
+interface BlogHeaderProps {
   sessionValidity: Session.SessionValidity;
 }
 
-const BlogHeader = (props: HeaderProps): JSX.Element => {
+const BlogHeader = (props: BlogHeaderProps): JSX.Element => {
   const routes: Routing.RouteInfo[] = [
     { route: Routing.routeMap.landing },
     { route: Routing.routeMap.feed },

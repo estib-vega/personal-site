@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth/next";
 
-import Layout from "../../components/blog/Layout";
+import BlogLayout from "../../components/blog/BlogLayout";
 import * as Auth from "../../lib/auth";
 import * as Routing from "../../lib/routing";
 import * as Session from "../../lib/session";
@@ -45,7 +45,7 @@ const Draft = (props: DraftProps): JSX.Element => {
   };
 
   return (
-    <Layout sessionValidity={props.sessionValidity}>
+    <BlogLayout sessionValidity={props.sessionValidity}>
       <div>
         <form onSubmit={submitData}>
           <h1>New Draft</h1>
@@ -101,7 +101,7 @@ const Draft = (props: DraftProps): JSX.Element => {
           margin-left: 1rem;
         }
       `}</style>
-    </Layout>
+    </BlogLayout>
   );
 };
 

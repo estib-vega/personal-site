@@ -3,7 +3,7 @@ import React from "react";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth/next";
 
-import Layout from "../../components/blog/Layout";
+import BlogLayout from "../../components/blog/BlogLayout";
 import Post, { PostProps } from "../../components/blog/Post";
 import { ButtonType } from "../../components/generic/Button";
 import LinkButton from "../../components/generic/LinkButton";
@@ -44,7 +44,7 @@ interface BlogProps {
 const Blog = (props: BlogProps): JSX.Element => {
   const canCreatePost = props.sessionValidity === Session.SessionValidity.Admin;
   return (
-    <Layout sessionValidity={props.sessionValidity}>
+    <BlogLayout sessionValidity={props.sessionValidity}>
       <div>
         <h1>Public Feed</h1>
         {canCreatePost && (
@@ -59,7 +59,7 @@ const Blog = (props: BlogProps): JSX.Element => {
           ))}
         </main>
       </div>
-    </Layout>
+    </BlogLayout>
   );
 };
 

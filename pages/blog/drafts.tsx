@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth/next";
 import { useSession } from "next-auth/react";
 
-import Layout from "../../components/blog/Layout";
+import BlogLayout from "../../components/blog/BlogLayout";
 import Post, { PostProps } from "../../components/blog/Post";
 import * as Auth from "../../lib/auth";
 import Prisma from "../../lib/prisma";
@@ -53,15 +53,15 @@ const Drafts = (props: DraftProps): JSX.Element => {
 
   if (!session) {
     return (
-      <Layout sessionValidity={props.sessionValidity}>
+      <BlogLayout sessionValidity={props.sessionValidity}>
         <h1>My Drafts</h1>
         <div>You need to be authenticated to view this page.</div>
-      </Layout>
+      </BlogLayout>
     );
   }
 
   return (
-    <Layout sessionValidity={props.sessionValidity}>
+    <BlogLayout sessionValidity={props.sessionValidity}>
       <div className="page">
         <h1>My Drafts</h1>
         <main>
@@ -84,7 +84,7 @@ const Drafts = (props: DraftProps): JSX.Element => {
           margin-top: 2rem;
         }
       `}</style>
-    </Layout>
+    </BlogLayout>
   );
 };
 
