@@ -7,11 +7,11 @@ export enum Route {
   Create = "/blog/create",
   User = "/user",
   Cards = "/cards",
-  APISignIn = "/api/auth/signin",
 }
 
 export enum APIRoute {
   CreatePost = "/api/post",
+  SignIn = "/api/auth/signin",
 }
 
 export interface RouteInfo {
@@ -38,7 +38,7 @@ export const routeMap = {
   },
   signIn: {
     label: "Login",
-    route: Route.APISignIn,
+    route: APIRoute.SignIn,
   },
   user: {
     label: "User",
