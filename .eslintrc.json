@@ -19,10 +19,13 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "@next/next/no-img-element": "off",
-    "semi": "warn",
-    "no-extra-semi": "warn"
+    "prettier/prettier": [
+      "warn",
+      {},
+      {}
+    ]
   }
 }
