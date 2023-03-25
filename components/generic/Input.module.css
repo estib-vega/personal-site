@@ -1,0 +1,16 @@
+.base {
+  width: 100%;
+  border-radius: var(--border-radius-2);
+  padding: var(--padding-input);
+  outline: none;
+  border: var(--border-size-input) solid var(--input-border-color);
+  background-color: var(--input-bg-color);
+  margin: var(--margin-size-2) var(--margin-size);
+  transition: background-color 200ms ease-in-out;
+}
+
+
+.base:focus {
+  border-color: var(--input-border-color-focus);
+  background-color: var(--input-bg-color-focus);
+}

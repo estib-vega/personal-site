@@ -1,16 +1,33 @@
 import React, { useState } from "react";
 
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, Redirect } from "next";
 import { getServerSession } from "next-auth/next";
 
 import BlogLayout from "../../components/blog/BlogLayout";
+import { ButtonProps, ButtonType } from "../../components/generic/Button";
+import ButtonBar from "../../components/generic/ButtonBar";
+import Form from "../../components/generic/Form";
+import Input, { InputType } from "../../components/generic/Input";
+import TextArea from "../../components/generic/TextArea";
 import * as Auth from "../../lib/auth";
+import * as Comms from "../../lib/comms";
 import * as Routing from "../../lib/routing";
 import * as Session from "../../lib/session";
 
 export const getServerSideProps: GetServerSideProps<DraftProps> = async (context) => {
   const session = await getServerSession(context.req, context.res, Auth.authOptions);
   const sessionValidity = Session.validateSession(session);
+
+  if (sessionValidity !== Session.SessionValidity.Admin) {
+    const redirect: Redirect = {
+      destination: Routing.routeMap.feed.route,
+      permanent: false,
+    };
+
+    return {
+      redirect,
+    };
+  }
 
   return { props: { sessionValidity } };
 };
@@ -20,77 +37,48 @@ interface DraftProps {
 }
 
 const Draft = (props: DraftProps): JSX.Element => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState<string | undefined>(undefined);
+  const [content, setContent] = useState<string | undefined>(undefined);
 
-  const submitData = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
+  const submitData = async () => {
     try {
-      const body = { title, content };
-      await fetch("/api/post", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      await Routing.goTo(Routing.Route.Drafts);
+      await Comms.post(Routing.APIRoute.CreatePost, { title, content }).then(() =>
+        Routing.goTo(Routing.Route.Drafts),
+      );
     } catch (error) {
       console.error(error);
     }
   };
 
+  const canSubmit = title !== undefined && content !== undefined;
+  const buttons: ButtonProps[] = [
+    {
+      submit: true,
+      type: ButtonType.Main,
+      disabled: !canSubmit,
+      children: "Create",
+    },
+    {
+      type: ButtonType.Secondary,
+      onClick: () => Routing.goTo(Routing.Route.Feed),
+      children: "Cancel",
+    },
+  ];
+
   return (
     <BlogLayout sessionValidity={props.sessionValidity}>
-      <div>
-        <form onSubmit={submitData}>
-          <h1>New Draft</h1>
-          <input
-            autoFocus
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Title"
-            type="text"
-            value={title}
-          />
-          <textarea
-            cols={50}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="Content"
-            rows={8}
-            value={content}
-          />
-          <input disabled={!content || !title} type="submit" value="Create" />
-          <a className="back" href="#" onClick={() => Routing.goTo(Routing.Route.Create)}>
-            or Cancel
-          </a>
-        </form>
-      </div>
-      <style jsx>{`
-        .page {
-          background-color: #aaa;
-          padding: 3rem;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        input[type="text"],
-        textarea {
-          width: 100%;
-          padding: 0.5rem;
-          margin: 0.5rem 0;
-          border-radius: 0.25rem;
-          border: 0.125rem solid rgba(0, 0, 0, 0.2);
-        }
-
-        input[type="submit"] {
-          background: #ececec;
-          border: 0;
-          padding: 1rem 2rem;
-        }
-
-        .back {
-          margin-left: 1rem;
-        }
-      `}</style>
+      <h1>New Draft</h1>
+      <Form onSubmit={submitData}>
+        <Input
+          type={InputType.Text}
+          onChange={setTitle}
+          value={title ?? ""}
+          placeholder="Title"
+          autofocus
+        />
+        <TextArea placeholder="Content" value={content ?? ""} onChange={setContent} />
+        <ButtonBar buttons={buttons} />
+      </Form>
     </BlogLayout>
   );
 };

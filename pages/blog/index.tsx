@@ -5,8 +5,8 @@ import { getServerSession } from "next-auth/next";
 
 import BlogLayout from "../../components/blog/BlogLayout";
 import Post, { PostProps } from "../../components/blog/Post";
-import { ButtonType } from "../../components/generic/Button";
-import LinkButton from "../../components/generic/LinkButton";
+import { ButtonProps, ButtonType } from "../../components/generic/Button";
+import ButtonBar from "../../components/generic/ButtonBar";
 import * as Auth from "../../lib/auth";
 import Prisma from "../../lib/prisma";
 import * as Routing from "../../lib/routing";
@@ -37,13 +37,18 @@ interface BlogProps {
 
 const Blog = (props: BlogProps): JSX.Element => {
   const canCreatePost = props.sessionValidity === Session.SessionValidity.Admin;
+  const buttons: ButtonProps[] = [
+    {
+      type: ButtonType.Main,
+      onClick: () => Routing.goTo(Routing.routeMap.create.route),
+      children: Routing.routeMap.create.label,
+    },
+  ];
   return (
     <BlogLayout sessionValidity={props.sessionValidity}>
+      <h1>Public Feed</h1>
       <div>
-        <h1>Public Feed</h1>
-        {canCreatePost && (
-          <LinkButton buttonType={ButtonType.Main} routeInfo={Routing.routeMap.create} />
-        )}
+        {canCreatePost && <ButtonBar buttons={buttons} />}
         <main>
           {props.feed.map((post) => (
             <Post {...post} key={post.id} />

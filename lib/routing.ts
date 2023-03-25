@@ -10,6 +10,10 @@ export enum Route {
   APISignIn = "/api/auth/signin",
 }
 
+export enum APIRoute {
+  CreatePost = "/api/post",
+}
+
 export interface RouteInfo {
   route: Route;
   label: string;

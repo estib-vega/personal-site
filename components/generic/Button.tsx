@@ -9,9 +9,11 @@ export enum ButtonType {
 }
 
 export interface ButtonProps {
-  type?: ButtonType;
   children: React.ReactNode;
+  disabled?: boolean;
+  type?: ButtonType;
   onClick?: () => void;
+  submit?: boolean;
 }
 
 function getButtonType(type: ButtonType | undefined): string {
@@ -27,8 +29,14 @@ function getButtonType(type: ButtonType | undefined): string {
 }
 
 const Button = (props: ButtonProps): JSX.Element => {
+  const type = !!props.submit ? "submit" : undefined;
   return (
-    <button className={getButtonType(props.type)} onClick={props.onClick}>
+    <button
+      disabled={props.disabled}
+      className={getButtonType(props.type)}
+      onClick={props.onClick}
+      type={type}
+    >
       {props.children}
     </button>
   );

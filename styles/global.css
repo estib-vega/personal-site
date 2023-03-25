@@ -26,6 +26,8 @@ html {
   --padding: var(--size-unit) var(--double-size-unit);
   --padding-2: var(--double-size-unit) var(--four-size-unit);
   --padding-panel: 1rem 2rem;
+  --padding-button: var(--double-size-unit) var(--double-size-unit);
+  --padding-input: var(--double-size-unit) var(--double-size-unit);
   --border-radius: var(--half-size-unit);
   --border-radius-2: var(--size-unit);
   --border-radius-3: var(--double-size-unit);
@@ -34,9 +36,12 @@ html {
   --font-size-title: var(--ten-size-unit);
   --font-size-title-2: var(--eight-size-unit);
   --font-size-title-3: var(--six-size-unit);
+  --font-size-button: var(--four-size-unit);
 
   --profile-picture-size: var(--ten-size-unit);
   --profile-picture-big-size: var(--fifty-size-unit);
+
+  --border-size-input: 2px;
 
   /* Colors */
   --bg-color: white;
@@ -50,6 +55,11 @@ html {
 
   --main-shadow-color: rgba(0, 0, 0, 0.15);
   --main-shadow: 0 var(--half-size-unit) var(--double-size-unit) var(--main-shadow-color);
+
+  --input-bg-color: #eee;
+  --input-border-color: transparent;
+  --input-bg-color-focus: white;
+  --input-border-color-focus: #eee;
 }
 
 body {
@@ -57,11 +67,6 @@ body {
   padding: 0;
   font-size: var(--font-size);
   background: var(--bg-color);
-}
-
-input,
-textarea {
-  font-size: var(--font-size);
 }
 
 button {
