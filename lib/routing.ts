@@ -6,6 +6,7 @@ export enum Route {
   Drafts = "/blog/drafts",
   Create = "/blog/create",
   User = "/user",
+  Cards = "/cards",
   APISignIn = "/api/auth/signin",
 }
 
@@ -38,6 +39,10 @@ export const routeMap = {
   user: {
     label: "User",
     route: Route.User,
+  },
+  cards: {
+    label: "Cards",
+    route: Route.Cards,
   },
 };
 

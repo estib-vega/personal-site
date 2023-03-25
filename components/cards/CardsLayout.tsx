@@ -3,12 +3,14 @@ import React from "react";
 import * as Routing from "../../lib/routing";
 import * as Session from "../../lib/session";
 import Header from "../common/Header";
+import styles from "./CardsLayout.module.css";
 
-interface BlogHeaderProps {
+interface CardsLayoutProps {
   sessionValidity: Session.SessionValidity;
+  children: React.ReactNode;
 }
 
-const BlogHeader = (props: BlogHeaderProps): JSX.Element => {
+const CardsLayout = (props: CardsLayoutProps): JSX.Element => {
   const routes: Routing.RouteInfo[] = [
     { route: Routing.routeMap.landing },
     { route: Routing.routeMap.feed },
@@ -20,8 +22,12 @@ const BlogHeader = (props: BlogHeaderProps): JSX.Element => {
   ]
     .filter((link) => link.hide !== true)
     .map((link) => link.route);
-
-  return <Header routes={routes} />;
+  return (
+    <div>
+      <Header routes={routes} />
+      <div className={styles.layout}>{props.children}</div>
+    </div>
+  );
 };
 
-export default BlogHeader;
+export default CardsLayout;
