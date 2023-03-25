@@ -26,6 +26,7 @@ html {
   --padding: var(--size-unit) var(--double-size-unit);
   --padding-2: var(--double-size-unit) var(--four-size-unit);
   --padding-panel: 1rem 2rem;
+  --padding-layout: 0 2rem;
   --padding-button: var(--double-size-unit) var(--double-size-unit);
   --padding-input: var(--double-size-unit) var(--double-size-unit);
   --border-radius: var(--half-size-unit);

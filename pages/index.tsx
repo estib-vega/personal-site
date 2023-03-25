@@ -8,7 +8,10 @@ const LANDING_TITLE = "estib";
 const Landing = () => {
   return (
     <div>
-      <LandingPanel title={LANDING_TITLE} links={[routeMap.feed, routeMap.signIn]} />
+      <LandingPanel
+        title={LANDING_TITLE}
+        links={[routeMap.about, routeMap.feed, routeMap.signIn]}
+      />
     </div>
   );
 };

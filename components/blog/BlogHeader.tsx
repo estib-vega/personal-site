@@ -12,6 +12,7 @@ const BlogHeader = (props: BlogHeaderProps): JSX.Element => {
   const routes: Routing.RouteInfo[] = [
     { route: Routing.routeMap.landing },
     { route: Routing.routeMap.feed },
+    { route: Routing.routeMap.about },
     {
       route: Routing.routeMap.drafts,
       hide: props.sessionValidity !== Session.SessionValidity.Admin,
