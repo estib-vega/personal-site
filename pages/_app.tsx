@@ -13,7 +13,7 @@ interface SessionProps {
 const App = ({ Component, pageProps }: AppProps<SessionProps>) => {
   return (
     <SessionProvider session={pageProps.session}>
-      <NextNProgress color={LOADING_VAR_COLOR} />
+      <NextNProgress color={LOADING_VAR_COLOR} options={{ showSpinner: false }} />
       <Component {...pageProps} />
     </SessionProvider>
   );

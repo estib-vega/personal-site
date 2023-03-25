@@ -25,6 +25,8 @@ export const getServerSideProps: GetServerSideProps<BlogProps> = async (context)
     },
   });
 
+  feed.reverse();
+
   return {
     props: { feed, sessionValidity },
   };
