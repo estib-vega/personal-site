@@ -5,6 +5,7 @@
   box-shadow: var(--main-shadow);
   padding: var(--padding);
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .profilePicture {

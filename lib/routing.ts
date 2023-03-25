@@ -15,7 +15,7 @@ export enum APIRoute {
 }
 
 export interface RouteInfo {
-  route: Route;
+  route: Route | APIRoute;
   label: string;
 }
 
