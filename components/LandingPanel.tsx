@@ -1,7 +1,5 @@
 import React from "react";
 
-import { useRouter } from "next/router";
-
 import * as Routing from "../lib/routing";
 import styles from "./LandingPanel.module.css";
 import Link from "./generic/Link";
@@ -12,20 +10,11 @@ interface LandingPanelProps {
 }
 
 const LandingPanel = (props: LandingPanelProps): JSX.Element => {
-  const router = useRouter();
-  const isActive = (routeInfo: Routing.RouteInfo): boolean =>
-    router.pathname === routeInfo.route;
-
   return (
     <div className={styles.container}>
       <div className={styles.subContainer}>
         {props.links.map((link) => (
-          <Link
-            className={styles.link}
-            routeInfo={link}
-            isActive={isActive(link)}
-            key={link.route}
-          />
+          <Link className={styles.link} routeInfo={link} key={link.route} />
         ))}
         <h1 className={styles.title}>{props.title}</h1>
       </div>

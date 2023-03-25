@@ -2,7 +2,6 @@ import React from "react";
 
 import * as NextAuth from "next-auth";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 
 import * as Routing from "../../lib/routing";
 import * as Session from "../../lib/session";
@@ -12,7 +11,6 @@ import styles from "./Header.module.css";
 
 interface LeftContainerProps {
   sessionValidity: Session.SessionValidity;
-  isActive: (routeInfo: Routing.RouteInfo) => boolean;
 }
 
 const LeftContainer = (props: LeftContainerProps): JSX.Element => {
@@ -30,11 +28,7 @@ const LeftContainer = (props: LeftContainerProps): JSX.Element => {
   return (
     <div className={styles.left}>
       {links.map((link) => (
-        <Link
-          routeInfo={link}
-          isActive={props.isActive(link)}
-          key={link.route}
-        />
+        <Link routeInfo={link} key={link.route} />
       ))}
     </div>
   );
@@ -74,10 +68,6 @@ interface HeaderProps {
 }
 
 const Header = (props: HeaderProps): JSX.Element => {
-  const router = useRouter();
-  const isActive = (routeInfo: Routing.RouteInfo): boolean =>
-    router.pathname === routeInfo.route;
-
   const { data: session, status } = useSession();
 
   const isLoadingSession = status === "loading";
@@ -85,10 +75,7 @@ const Header = (props: HeaderProps): JSX.Element => {
   return (
     <nav>
       <div className={styles.container}>
-        <LeftContainer
-          isActive={isActive}
-          sessionValidity={props.sessionValidity}
-        />
+        <LeftContainer sessionValidity={props.sessionValidity} />
         <RightContainer isLoadingSession={isLoadingSession} session={session} />
       </div>
     </nav>
