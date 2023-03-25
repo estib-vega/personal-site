@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 import * as Session from "../../lib/session";
-import Header from "./Header";
+import BlogHeader from "./BlogHeader";
 import styles from "./Layout.module.css";
 
 interface LayoutProps {
@@ -11,7 +11,7 @@ interface LayoutProps {
 
 const Layout = (props: LayoutProps): JSX.Element => (
   <div>
-    <Header sessionValidity={props.sessionValidity} />
+    <BlogHeader sessionValidity={props.sessionValidity} />
     <div className={styles.layout}>{props.children}</div>
   </div>
 );
