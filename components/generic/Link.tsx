@@ -16,6 +16,15 @@ const Link = (props: LinkProps): JSX.Element => {
   const isActive = router.pathname === props.routeInfo.route;
   const defaultClassName = isActive ? styles.linkActive : styles.link;
   const className = props.className ?? defaultClassName;
+
+  if (props.routeInfo.isOutLink) {
+    return (
+      <a className={className} href={props.routeInfo.route}>
+        {props.routeInfo.label}
+      </a>
+    );
+  }
+
   return (
     <NextLink href={props.routeInfo.route}>
       <a className={className} data-active={isActive}>

@@ -15,10 +15,25 @@ export enum APIRoute {
   SignIn = "/api/auth/signin",
 }
 
-export interface RouteInfo {
-  route: Route | APIRoute;
+export enum ExternalLink {
+  Chess = "https://estib.gitlab.io/chess",
+}
+
+interface BaseRouteInfo {
+  isOutLink?: boolean;
   label: string;
 }
+
+interface InternalRouteInfo extends BaseRouteInfo {
+  route: Route | APIRoute;
+}
+
+interface ExternalRouteInfo extends BaseRouteInfo {
+  isOutLink: boolean;
+  route: ExternalLink;
+}
+
+export type RouteInfo = InternalRouteInfo | ExternalRouteInfo;
 
 export const routeMap = {
   landing: {
@@ -52,6 +67,11 @@ export const routeMap = {
   cv: {
     label: "Curriculum",
     route: Route.CV,
+  },
+  chess: {
+    isOutLink: true,
+    label: "Chess",
+    route: ExternalLink.Chess,
   },
 };
 
