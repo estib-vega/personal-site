@@ -10,7 +10,7 @@ const Landing = () => {
     <div>
       <LandingPanel
         title={LANDING_TITLE}
-        links={[routeMap.about, routeMap.feed, routeMap.signIn]}
+        links={[routeMap.cv, routeMap.feed, routeMap.signIn]}
       />
     </div>
   );

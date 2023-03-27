@@ -7,7 +7,7 @@ export enum Route {
   Create = "/blog/create",
   User = "/user",
   Cards = "/cards",
-  About = "/about",
+  CV = "/blog/p/clfr4jbi00002dhkgodrzpw1x",
 }
 
 export enum APIRoute {
@@ -49,9 +49,9 @@ export const routeMap = {
     label: "Cards",
     route: Route.Cards,
   },
-  about: {
-    label: "About",
-    route: Route.About,
+  cv: {
+    label: "Curriculum",
+    route: Route.CV,
   },
 };
 

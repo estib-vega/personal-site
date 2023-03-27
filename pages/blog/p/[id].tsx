@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import ReactMarkdown from "react-markdown";
 
 import BlogLayout from "../../../components/blog/BlogLayout";
-import { PostProps } from "../../../components/blog/Post";
+import { PostInfo } from "../../../components/blog/Post";
 import * as Auth from "../../../lib/auth";
 import Prisma from "../../../lib/prisma";
 import * as Routing from "../../../lib/routing";
@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps<PostViewProps, GetServerSide
   const sessionValidity = Session.validateSession(session);
 
   return {
-    props: { ...post, sessionValidity },
+    props: { post, sessionValidity },
   };
 };
 
@@ -56,17 +56,18 @@ async function publishPost(id: string): Promise<void> {
   await fetch(`/api/publish/${id}`, {
     method: "PUT",
   });
-  await Routing.goTo(Routing.Route.Root);
+  await Routing.goTo(Routing.Route.Feed);
 }
 
 async function deletePost(id: string): Promise<void> {
   await fetch(`/api/post/${id}`, {
     method: "DELETE",
   });
-  await Routing.goTo(Routing.Route.Root);
+  await Routing.goTo(Routing.Route.Feed);
 }
 
-interface PostViewProps extends PostProps {
+interface PostViewProps {
+  post: PostInfo;
   sessionValidity: Session.SessionValidity;
 }
 
@@ -76,23 +77,23 @@ const PostView = (props: PostViewProps): JSX.Element => {
     return <div>Authenticating ...</div>;
   }
   const userHasValidSession = !!session;
-  const postBelongsToUser = session?.user?.email === props.author?.email;
-  let title = props.title;
-  if (!props.published) {
+  const postBelongsToUser = session?.user?.email === props.post.author?.email;
+  let title = props.post.title;
+  if (!props.post.published) {
     title = `${title} (Draft)`;
   }
 
-  const canPublish = !props.published && userHasValidSession && postBelongsToUser;
+  const canPublish = !props.post.published && userHasValidSession && postBelongsToUser;
   const canDelete = userHasValidSession && postBelongsToUser;
 
   return (
     <BlogLayout sessionValidity={props.sessionValidity}>
       <div>
         <h2>{title}</h2>
-        <p>By {props?.author?.name || "Unknown author"}</p>
-        <ReactMarkdown>{props.content ?? ""}</ReactMarkdown>
-        {canPublish && <button onClick={() => publishPost(props.id)}>Publish</button>}
-        {canDelete && <button onClick={() => deletePost(props.id)}>Delete</button>}
+        <p>By {props.post?.author?.name || "Unknown author"}</p>
+        <ReactMarkdown>{props.post.content ?? ""}</ReactMarkdown>
+        {canPublish && <button onClick={() => publishPost(props.post.id)}>Publish</button>}
+        {canDelete && <button onClick={() => deletePost(props.post.id)}>Delete</button>}
       </div>
       <style jsx>{`
         .page {

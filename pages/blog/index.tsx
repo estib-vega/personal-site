@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth/next";
 
 import BlogLayout from "../../components/blog/BlogLayout";
-import Post, { PostProps } from "../../components/blog/Post";
+import Post, { PostInfo } from "../../components/blog/Post";
 import { ButtonProps, ButtonType } from "../../components/generic/Button";
 import ButtonBar from "../../components/generic/ButtonBar";
 import * as Auth from "../../lib/auth";
@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps<BlogProps> = async (context)
 };
 
 interface BlogProps {
-  feed: PostProps[];
+  feed: PostInfo[];
   sessionValidity: Session.SessionValidity;
 }
 
@@ -53,7 +53,7 @@ const Blog = (props: BlogProps): JSX.Element => {
         {canCreatePost && <ButtonBar buttons={buttons} />}
         <main>
           {props.feed.map((post) => (
-            <Post {...post} key={post.id} />
+            <Post post={post} preview key={post.id} />
           ))}
         </main>
       </div>

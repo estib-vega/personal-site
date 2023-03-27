@@ -11,7 +11,7 @@ interface AboutLayoutProps {
 const AboutLayout = (props: AboutLayoutProps): JSX.Element => {
   return (
     <div>
-      <Header routes={[Routing.routeMap.landing, Routing.routeMap.feed, Routing.routeMap.about]} />
+      <Header routes={[Routing.routeMap.landing, Routing.routeMap.feed, Routing.routeMap.cv]} />
       <div className={styles.layout}>{props.children}</div>
     </div>
   );

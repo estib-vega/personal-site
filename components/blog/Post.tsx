@@ -5,24 +5,31 @@ import ReactMarkdown from "react-markdown";
 import * as Routing from "../../lib/routing";
 import styles from "./Post.module.css";
 
-export interface PostProps {
+interface Author {
+  name: string | null;
+  email: string | null;
+}
+
+export interface PostInfo {
   id: string;
   title: string;
-  author: {
-    name: string | null;
-    email: string | null;
-  } | null;
+  author: Author | null;
   content: string | null;
   published: boolean;
 }
 
+interface PostProps {
+  post: PostInfo;
+  preview?: boolean;
+}
+
 const Post = (props: PostProps): JSX.Element => {
-  const authorName = props.author?.name ?? "Unknown author";
+  const authorName = props.post.author?.name ?? "Unknown author";
   return (
-    <div className={styles.post} onClick={() => Routing.goToPost(props.id)}>
-      <h2>{props.title}</h2>
+    <div className={styles.post} onClick={() => Routing.goToPost(props.post.id)}>
+      <h2>{props.post.title}</h2>
       <small>By {authorName}</small>
-      <ReactMarkdown>{props.content ?? ""}</ReactMarkdown>
+      {props.preview !== true && <ReactMarkdown>{props.post.content ?? ""}</ReactMarkdown>}
     </div>
   );
 };

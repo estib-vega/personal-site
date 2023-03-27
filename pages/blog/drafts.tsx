@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth/next";
 import { useSession } from "next-auth/react";
 
 import BlogLayout from "../../components/blog/BlogLayout";
-import Post, { PostProps } from "../../components/blog/Post";
+import Post, { PostInfo } from "../../components/blog/Post";
 import * as Auth from "../../lib/auth";
 import Prisma from "../../lib/prisma";
 import * as Session from "../../lib/session";
@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps<DraftProps> = async (context
 };
 
 type DraftProps = {
-  drafts: PostProps[];
+  drafts: PostInfo[];
   sessionValidity: Session.SessionValidity;
 };
 
@@ -56,28 +56,14 @@ const Drafts = (props: DraftProps): JSX.Element => {
 
   return (
     <BlogLayout sessionValidity={props.sessionValidity}>
-      <div className="page">
+      <div>
         <h1>My Drafts</h1>
         <main>
           {props.drafts.map((post) => (
-            <Post {...post} key={post.id} />
+            <Post post={post} preview key={post.id} />
           ))}
         </main>
       </div>
-      <style jsx>{`
-        .post {
-          box-shadow: 5px 5px 10px #ccc;
-          transition: box-shadow 300ms ease-in-out;
-        }
-
-        .post:hover {
-          box-shadow: 1px 1px 3px #aaa;
-        }
-
-        .post + .post {
-          margin-top: 2rem;
-        }
-      `}</style>
     </BlogLayout>
   );
 };
