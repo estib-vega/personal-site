@@ -2,6 +2,7 @@ import React from "react";
 
 import * as Routing from "../../lib/routing";
 import * as Session from "../../lib/session";
+import Footer from "../common/Footer";
 import Header from "../common/Header";
 import styles from "./CardsLayout.module.css";
 
@@ -26,6 +27,7 @@ const CardsLayout = (props: CardsLayoutProps): JSX.Element => {
     <div>
       <Header routes={routes} />
       <div className={styles.layout}>{props.children}</div>
+      <Footer routes={routes} />
     </div>
   );
 };
