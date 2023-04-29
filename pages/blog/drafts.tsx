@@ -45,19 +45,21 @@ type DraftProps = {
 const Drafts = (props: DraftProps): JSX.Element => {
   const { data: session } = useSession();
 
+  const pageTitle = "My Drafts";
+
   if (!session) {
     return (
-      <BlogLayout sessionValidity={props.sessionValidity}>
-        <h1>My Drafts</h1>
+      <BlogLayout title={pageTitle} sessionValidity={props.sessionValidity}>
+        <h1>{pageTitle}</h1>
         <div>You need to be authenticated to view this page.</div>
       </BlogLayout>
     );
   }
 
   return (
-    <BlogLayout sessionValidity={props.sessionValidity}>
+    <BlogLayout title={pageTitle} sessionValidity={props.sessionValidity}>
       <div>
-        <h1>My Drafts</h1>
+        <h1>{pageTitle}</h1>
         <main>
           {props.drafts.map((post) => (
             <Post post={post} preview key={post.id} />

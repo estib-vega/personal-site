@@ -2,8 +2,7 @@ import React from "react";
 
 import * as Routing from "../../lib/routing";
 import * as Session from "../../lib/session";
-import Footer from "../common/Footer";
-import Header from "../common/Header";
+import Layout from "../common/Layout";
 import styles from "./CardsLayout.module.css";
 
 interface CardsLayoutProps {
@@ -23,12 +22,12 @@ const CardsLayout = (props: CardsLayoutProps): JSX.Element => {
   ]
     .filter((link) => link.hide !== true)
     .map((link) => link.route);
+
+  const pageTitle = "Cards";
   return (
-    <div>
-      <Header routes={routes} />
+    <Layout title={pageTitle} routes={routes}>
       <div className={styles.layout}>{props.children}</div>
-      <Footer routes={routes} />
-    </div>
+    </Layout>
   );
 };
 

@@ -104,7 +104,7 @@ const PostView = (props: PostViewProps): JSX.Element => {
   ];
 
   return (
-    <BlogLayout sessionValidity={props.sessionValidity}>
+    <BlogLayout title={title} sessionValidity={props.sessionValidity}>
       <div>
         <h2>{title}</h2>
         <p>By {props.post?.author?.name || "Unknown author"}</p>

@@ -65,9 +65,11 @@ const Draft = (props: DraftProps): JSX.Element => {
     },
   ];
 
+  const pageTitle = "New Draft";
+
   return (
-    <BlogLayout sessionValidity={props.sessionValidity}>
-      <h1>New Draft</h1>
+    <BlogLayout title={pageTitle} sessionValidity={props.sessionValidity}>
+      <h1>{pageTitle}</h1>
       <Form onSubmit={submitData}>
         <Input
           type={InputType.Text}

@@ -46,9 +46,12 @@ const Blog = (props: BlogProps): JSX.Element => {
       children: Routing.routeMap.create.label,
     },
   ];
+
+  const pageTitle = "Feed";
+
   return (
-    <BlogLayout sessionValidity={props.sessionValidity}>
-      <h1>Public Feed</h1>
+    <BlogLayout title={pageTitle} sessionValidity={props.sessionValidity}>
+      <h1>{pageTitle}</h1>
       <div>
         {canCreatePost && <ButtonBar buttons={buttons} />}
         <main>

@@ -2,12 +2,12 @@ import React, { ReactNode } from "react";
 
 import * as Routing from "../../lib/routing";
 import * as Session from "../../lib/session";
-import Footer from "../common/Footer";
-import Header from "../common/Header";
+import Layout from "../common/Layout";
 import styles from "./BlogLayout.module.css";
 
 interface BlogLayoutProps {
   sessionValidity: Session.SessionValidity;
+  title: string;
   children: ReactNode;
 }
 
@@ -25,11 +25,9 @@ const BlogLayout = (props: BlogLayoutProps): JSX.Element => {
     .map((link) => link.route);
 
   return (
-    <div>
-      <Header routes={routes} />
+    <Layout title={props.title} routes={routes}>
       <div className={styles.layout}>{props.children}</div>
-      <Footer routes={routes} />
-    </div>
+    </Layout>
   );
 };
 
