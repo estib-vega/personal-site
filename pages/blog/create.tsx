@@ -4,8 +4,8 @@ import { GetServerSideProps, Redirect } from "next";
 import { getServerSession } from "next-auth/next";
 
 import BlogLayout from "../../components/blog/BlogLayout";
-import { ButtonProps, ButtonType } from "../../components/generic/Button";
-import ButtonBar from "../../components/generic/ButtonBar";
+import { ButtonType } from "../../components/generic/Button";
+import ButtonBar, { ButtonBarItem } from "../../components/generic/ButtonBar";
 import Form from "../../components/generic/Form";
 import Input, { InputType } from "../../components/generic/Input";
 import TextArea from "../../components/generic/TextArea";
@@ -51,7 +51,7 @@ const Draft = (props: DraftProps): JSX.Element => {
   };
 
   const canSubmit = title !== undefined && content !== undefined;
-  const buttons: ButtonProps[] = [
+  const buttons: ButtonBarItem[] = [
     {
       submit: true,
       type: ButtonType.Main,

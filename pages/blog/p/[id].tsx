@@ -8,6 +8,8 @@ import ReactMarkdown from "react-markdown";
 
 import BlogLayout from "../../../components/blog/BlogLayout";
 import { PostInfo } from "../../../components/blog/Post";
+import { ButtonType } from "../../../components/generic/Button";
+import ButtonBar, { ButtonBarItem } from "../../../components/generic/ButtonBar";
 import * as Auth from "../../../lib/auth";
 import Prisma from "../../../lib/prisma";
 import * as Routing from "../../../lib/routing";
@@ -86,36 +88,29 @@ const PostView = (props: PostViewProps): JSX.Element => {
   const canPublish = !props.post.published && userHasValidSession && postBelongsToUser;
   const canDelete = userHasValidSession && postBelongsToUser;
 
+  const buttons: ButtonBarItem[] = [
+    {
+      type: ButtonType.Main,
+      onClick: () => publishPost(props.post.id),
+      children: "Publish",
+      hidden: !canPublish,
+    },
+    {
+      type: ButtonType.MainNegative,
+      onClick: () => deletePost(props.post.id),
+      children: "Delete",
+      hidden: !canDelete,
+    },
+  ];
+
   return (
     <BlogLayout sessionValidity={props.sessionValidity}>
       <div>
         <h2>{title}</h2>
         <p>By {props.post?.author?.name || "Unknown author"}</p>
         <ReactMarkdown>{props.post.content ?? ""}</ReactMarkdown>
-        {canPublish && <button onClick={() => publishPost(props.post.id)}>Publish</button>}
-        {canDelete && <button onClick={() => deletePost(props.post.id)}>Delete</button>}
+        <ButtonBar buttons={buttons} />
       </div>
-      <style jsx>{`
-        .page {
-          background: var(--geist-background);
-          padding: 2rem;
-        }
-
-        .actions {
-          margin-top: 2rem;
-        }
-
-        button {
-          background: #ececec;
-          border: 0;
-          border-radius: 0.125rem;
-          padding: 1rem 2rem;
-        }
-
-        button + button {
-          margin-left: 1rem;
-        }
-      `}</style>
     </BlogLayout>
   );
 };

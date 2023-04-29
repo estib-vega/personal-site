@@ -5,6 +5,7 @@ import styles from "./Button.module.css";
 export enum ButtonType {
   Default,
   Main,
+  MainNegative,
   Secondary,
 }
 
@@ -21,6 +22,8 @@ function getButtonType(type: ButtonType | undefined): string {
     case ButtonType.Default:
     case undefined:
       return styles.button;
+    case ButtonType.MainNegative:
+      return styles.mainButtonNegative;
     case ButtonType.Main:
       return styles.mainButton;
     case ButtonType.Secondary:
