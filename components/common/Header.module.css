@@ -5,6 +5,39 @@
   padding: var(--padding);
 }
 
+.linkList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: var(--padding-2);
+  background-color: var(--main-color);
+  box-sizing: border-box;
+  transition: all ease-in-out 300ms;
+}
+
+.linkListOpen {
+  composes: linkList;
+  opacity: 1;
+  height: 75vh;
+  pointer-events: all;
+}
+
+.linkListClose {
+  composes: linkList;
+  opacity: 0;
+  pointer-events: none;
+  height: 0px;
+}
+
+.link {
+  margin: var(--margin-size) 0;
+  color: var(--main-font-color);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: var(--font-size-title-2);
+}
+
 .left {
   display: flex;
   align-items: center;

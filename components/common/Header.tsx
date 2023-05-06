@@ -3,20 +3,20 @@ import React from "react";
 import { useSession } from "next-auth/react";
 
 import * as Routing from "../../lib/routing";
+import HamburgerMenuButton from "../generic/HamburgerMenuButton";
 import Link from "../generic/Link";
 import UserPill from "../user/UserPill";
 import styles from "./Header.module.css";
 
 interface LeftContainerProps {
-  routes: Routing.RouteInfo[];
+  hamburgerState: boolean;
+  toggleHamburgerState: () => void;
 }
 
 const LeftContainer = (props: LeftContainerProps): JSX.Element => {
   return (
     <div className={styles.left}>
-      {props.routes.map((link) => (
-        <Link routeInfo={link} key={link.route} />
-      ))}
+      <HamburgerMenuButton open={props.hamburgerState} onClick={props.toggleHamburgerState} />
     </div>
   );
 };
@@ -49,17 +49,42 @@ const RightContainer = (): JSX.Element => {
   return <></>;
 };
 
+// ####################################################################################
+
+interface LinkListProps {
+  open: boolean;
+  routes: Routing.RouteInfo[];
+}
+
+const LinkList = (props: LinkListProps): JSX.Element => {
+  return (
+    <div className={props.open ? styles.linkListOpen : styles.linkListClose}>
+      {props.routes.map((link) => (
+        <Link className={styles.link} routeInfo={link} key={link.route} />
+      ))}
+    </div>
+  );
+};
+
+// ####################################################################################
+
 interface HeaderProps {
   routes: Routing.RouteInfo[];
 }
 
 const Header = (props: HeaderProps): JSX.Element => {
+  const [isOpenMenu, openMenu] = React.useState<boolean>(false);
+
   return (
     <nav>
       <div className={styles.container}>
-        <LeftContainer routes={props.routes} />
+        <LeftContainer
+          hamburgerState={isOpenMenu}
+          toggleHamburgerState={() => openMenu((o) => !o)}
+        />
         <RightContainer />
       </div>
+      <LinkList open={isOpenMenu} routes={props.routes} />
     </nav>
   );
 };
