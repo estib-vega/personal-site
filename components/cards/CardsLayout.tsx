@@ -14,7 +14,6 @@ const CardsLayout = (props: CardsLayoutProps): JSX.Element => {
   const routes: Routing.RouteInfo[] = [
     { route: Routing.routeMap.landing },
     { route: Routing.routeMap.feed },
-    { route: Routing.routeMap.cards },
     {
       route: Routing.routeMap.drafts,
       hide: props.sessionValidity !== Session.SessionValidity.Admin,
