@@ -82,3 +82,7 @@ export function goTo(route: Route): Promise<boolean> {
 export function goToPost(postId: string): Promise<boolean> {
   return Router.push("/blog/p/[id]", `/blog/p/${postId}`);
 }
+
+export function goToCardSet(cardSetId: string): Promise<boolean> {
+  return Router.push("/cards/s/[id]", `/cards/s/${cardSetId}`);
+}

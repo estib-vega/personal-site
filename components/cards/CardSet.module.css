@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+
+  padding: var(--padding-2);
+  margin: var(--margin-size-2) var(--margin-size);
+
+  box-sizing: border-box;
+  box-shadow: var(--main-shadow);
+  border-radius: var(--border-radius-3);
+  cursor: pointer;
+  width: var(--card-width);
+  height: var(--card-height);
+}

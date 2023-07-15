@@ -44,6 +44,9 @@ html {
 
   --border-size-input: 2px;
 
+  --card-width: 320px;
+  --card-height: 200px;
+
   /* Colors */
   --bg-color: white;
 
