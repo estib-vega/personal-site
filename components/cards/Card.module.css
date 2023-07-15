@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  width: 100%;
+  max-width: var(--big-card-max-width);
+  min-height: var(--big-card-min-height);
+
+  box-shadow: var(--card-shadow);
+  border-radius: var(--border-radius-3);
+  padding: var(--padding-2);
+  margin: var(--margin-size-2) 0;
+}

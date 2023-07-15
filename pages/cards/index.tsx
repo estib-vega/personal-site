@@ -3,9 +3,9 @@ import React from "react";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 
-import { CardSetInfo } from "../../components/cards/CardSet";
 import CardSetContainer from "../../components/cards/CardSetContainer";
 import CardsLayout from "../../components/cards/CardsLayout";
+import { CardSetInfo } from "../../components/cards/types";
 import * as Auth from "../../lib/auth";
 import * as Session from "../../lib/session";
 

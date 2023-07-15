@@ -46,6 +46,8 @@ html {
 
   --card-width: 320px;
   --card-height: 200px;
+  --big-card-max-width: 800px;
+  --big-card-min-height: 520px;
 
   /* Colors */
   --bg-color: white;
@@ -59,7 +61,9 @@ html {
   --secondary-font-color: black;
 
   --main-shadow-color: rgba(0, 0, 0, 0.15);
+  --card-shadow-color: rgba(0, 0, 0, 0.35);
   --main-shadow: 0 var(--half-size-unit) var(--double-size-unit) var(--main-shadow-color);
+  --card-shadow: 0 var(--half-size-unit) var(--double-size-unit) var(--card-shadow-color);
 
   --input-bg-color: #eee;
   --input-border-color: transparent;

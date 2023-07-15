@@ -1,8 +1,9 @@
 import React from "react";
 
 import * as Routing from "../../lib/routing";
-import CardSet, { CardSetInfo } from "./CardSet";
+import CardSet from "./CardSet";
 import styles from "./CardSetContainer.module.css";
+import { CardSetInfo } from "./types";
 
 interface CardSetContainerProps {
   cardSets: CardSetInfo[];

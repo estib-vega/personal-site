@@ -9,6 +9,7 @@
 
   box-sizing: border-box;
   box-shadow: var(--main-shadow);
+
   border-radius: var(--border-radius-3);
   cursor: pointer;
   width: var(--card-width);

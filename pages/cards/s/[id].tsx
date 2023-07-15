@@ -3,9 +3,9 @@ import React from "react";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 
-import { CardContentType, CardInfo } from "../../../components/cards/CardSet";
 import CardViewer from "../../../components/cards/CardViewer";
 import CardsLayout from "../../../components/cards/CardsLayout";
+import { CardContentType, CardInfo } from "../../../components/cards/types";
 import * as Auth from "../../../lib/auth";
 import * as Session from "../../../lib/session";
 
@@ -22,15 +22,15 @@ export const getServerSideProps: GetServerSideProps<CardPageProps, GetServerSide
   // MOCK CARDS
   const cards: CardInfo[] = [];
 
-  for (let _ = 0; _ < 10; _++) {
+  for (let i = 0; i < 10; i++) {
     cards.push({
       frontContent: {
         type: CardContentType.Text,
-        content: "this is the front of the card",
+        content: "this is the front of the card " + i,
       },
       backContent: {
         type: CardContentType.Text,
-        content: "this is the back of the card",
+        content: "this is the back of the card " + i,
       },
     });
   }
