@@ -11,7 +11,7 @@ const Landing = () => {
     <Layout title="Home">
       <LandingPanel
         title={LANDING_TITLE}
-        links={[routeMap.cv, routeMap.chess, routeMap.feed, routeMap.signIn]}
+        links={[routeMap.cv, routeMap.webgpu, routeMap.chess, routeMap.feed, routeMap.signIn]}
       />
     </Layout>
   );

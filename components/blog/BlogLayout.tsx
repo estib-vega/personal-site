@@ -15,6 +15,7 @@ const BlogLayout = (props: BlogLayoutProps): JSX.Element => {
   const routes: Routing.RouteInfo[] = [
     { route: Routing.routeMap.landing },
     { route: Routing.routeMap.feed },
+    { route: Routing.routeMap.webgpu },
     { route: Routing.routeMap.cv },
     {
       route: Routing.routeMap.drafts,

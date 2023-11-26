@@ -8,6 +8,7 @@ export enum Route {
   User = "/user",
   Cards = "/cards",
   CV = "/blog/p/clfr4jbi00002dhkgodrzpw1x",
+  WebGPU = "/webgpu",
 }
 
 export enum APIRoute {
@@ -17,6 +18,7 @@ export enum APIRoute {
 
 export enum ExternalLink {
   Chess = "https://estib.gitlab.io/chess",
+  NPMAxltl = "https://www.npmjs.com/package/axltl",
 }
 
 interface BaseRouteInfo {
@@ -72,6 +74,10 @@ export const routeMap = {
     isOutLink: true,
     label: "Chess",
     route: ExternalLink.Chess,
+  },
+  webgpu: {
+    label: "WebGPU",
+    route: Route.WebGPU,
   },
 };
 

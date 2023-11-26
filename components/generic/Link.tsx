@@ -26,7 +26,7 @@ const Link = (props: LinkProps): JSX.Element => {
   }
 
   return (
-    <NextLink href={props.routeInfo.route}>
+    <NextLink href={props.routeInfo.route} legacyBehavior>
       <a className={className} data-active={isActive}>
         {props.routeInfo.label}
       </a>
